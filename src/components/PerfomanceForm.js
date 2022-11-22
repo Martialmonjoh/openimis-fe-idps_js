@@ -17,33 +17,49 @@ const styles = (theme) => ({
 class PerfomanceForm extends Component {
   state = {
     lockNew: false,
-    criteria: this._newCriteria(),
-    newCriteria: true,
+    performance: this._newPerformance(),
+    newPerfomance: true,
   };
 
-  _newCriteria() {
-    let criteria = {};
-    criteria.jsonExt = {};
-    return criteria;
+  canSave = () => {
+    if (!this.state.performance.dateFrom) return false;
+    if (!this.state.performance.dateTo) return false;
+    if (!this.state.performance.healthFacility) return false;
+    if (!this.state.performance.promptness) return false;
+    if (!this.state.performance.permanentAvailability) return false;
+    if (!this.state.performance.rejectionDegree) return false;
+    if (!this.state.performance.qualifiedPersonnel) return false;
+    if (!this.state.performance.garbageAvailability) return false;
+    if (!this.state.performance.cleanliness) return false;
+    if (!this.state.performance.wasteSeparation) return false;
+    if (!this.state.performance.functionalToilets) return false;
+    if (!this.state.performance.sterilizationTools) return false;
+    return true;
+  };
+
+  onEditedChanged = (performance) => {
+    this.setState({ performance, newPerformance: false });
+  };
+
+  _newPerformance() {
+    let performance = {};
+    performance.jsonExt = {};
+    return performance;
   }
 
   render() {
     const {
       intl,
     } = this.props;
-    const { criteria } = this.state;
+    const { performance } = this.state;
     return (
-      <Fragment>
-        <Helmet
-          title={formatMessage(intl, "idps", "menu.perfomance")}
-        />
-        <Form
-              module="idps"
-              title={formatMessage(intl, "idps", "performance.evaluation")}
-              Panels={[PerfomanceMasterPanel]}
-              criteria={this.state.criteria}
-            />
-      </Fragment>
+      <Form
+        module="idps"
+        Panels={[PerfomanceMasterPanel]}
+        performance={this.state.performance}
+        onEditedChanged={this.onEditedChanged}
+        canSave={this.canSave}
+      />
     );
   }
 }

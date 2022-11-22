@@ -42,105 +42,118 @@ class PerfomanceMasterPanel extends FormPanel {
                   <FormattedMessage module="idps" id={title} values={titleParams} />
                 </Typography>
               </Grid>
-              <Grid item xs={9}>
-              </Grid>
             </Grid>
             <Divider />
             <Grid container className={classes.item}>
-              <Grid item xs={2} className={classes.item}>
+              <Grid item xs={6} className={classes.item}>
                 <PublishedComponent
                   pubRef="core.DatePicker"
                   value={!!edited ? edited.dateFrom : null}
                   module="idps"
-                  label="peformance.dateFrom"
+                  label="performance.dateFrom"
                   readOnly={readOnly}
                   required={true}
                   onChange={(v) => this.updateAttribute("dateFrom", v)}
                 />
               </Grid>
-              <Grid item xs={2} className={classes.item}>
+              <Grid item xs={6} className={classes.item}>
                 <PublishedComponent
                   pubRef="core.DatePicker"
                   value={!!edited ? edited.dateTo : null}
                   module="idps"
-                  label="peformance.dateTo"
+                  label="performance.dateTo"
                   readOnly={readOnly}
                   required={true}
                   onChange={(v) => this.updateAttribute("dateTo", v)}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+            </Grid>
+            <Grid container className={classes.item}>
+              <Grid item xs={6} className={classes.item}>
                 <PublishedComponent
-                  pubRef="idps.HealthFacilityPicker"
-                  label="performance.healthFacility"
+                  pubRef="location.HealthFacilityPicker"
                   module="idps"
+                  label={formatMessage(intl, "idps", "performance.healthFacility")}
                   value={!!edited && !!edited.healthFacility ? edited.healthFacility : ""}
                   readOnly={readOnly}
                   withNull={true}
                   nullLabel={formatMessage(intl, "idps", "perfomance.healthFacility.none")}
+                  onChange={(v) => this.updateAttribute("healthFacility", !edited || !edited.healthFacility)}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+              <Grid item xs={6} className={classes.item} alignItems="center">
+                {formatMessage(intl, "idps", "perfomance.promptness")}
                 <NumberInput
                   module="idps"
-                  label="perfomance.promptness"
+                  label=""
                   required={true}
-                  readOnly={readOnly}
+                  readOnly={true}
                   value={!!edited && !!edited.promptness ? edited.promptness : ""}
                   onChange={(v) => this.updateAttribute("promptness", v)}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+            </Grid>
+            <Grid container className={classes.item}>
+              <Grid item xs={6} className={classes.item}>
+                {formatMessage(intl, "idps", "performance.permanentAvailability")}
                 <NumberInput
                   module="idps"
-                  label="performance.rejectionDegree"
-                  required={true}
-                  readOnly={readOnly}
-                  value={!!edited && !!edited.rejectionDegree ? edited.rejectionDegree : ""}
-                  onChange={(v) => this.updateAttribute("rejectionDegree", v)}
-                />
-              </Grid>
-              <Grid item xs={4} className={classes.item}>
-                <NumberInput
-                  module="idps"
-                  label="performance.permanentAvailability"
+                  label=""
                   required={true}
                   readOnly={readOnly}
                   value={!!edited && !!edited.permanentAvailability ? edited.permanentAvailability : ""}
                   onChange={(v) => this.updateAttribute("permanentAvailability", v)}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+              <Grid item xs={6} className={classes.item}>
+                {formatMessage(intl, "idps", "performance.rejectionDegree")}
                 <NumberInput
                   module="idps"
-                  label="performance.qualifiedPersonnel"
+                  label=""
+                  required={true}
+                  readOnly={true}
+                  value={!!edited && !!edited.rejectionDegree ? edited.rejectionDegree : ""}
+                  onChange={(v) => this.updateAttribute("rejectionDegree", v)}
+                />
+              </Grid>
+            </Grid>
+            <Grid container className={classes.item}>
+              <Grid item xs={6} className={classes.item}>
+                {formatMessage(intl, "idps", "performance.qualifiedPersonnel")}
+                <NumberInput
+                  module="idps"
+                  label=""
                   required={true}
                   readOnly={readOnly}
                   value={!!edited && !!edited.qualifiedPersonnel ? edited.qualifiedPersonnel : ""}
                   onChange={(v) => this.updateAttribute("qualifiedPersonnel", v)}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+              <Grid item xs={6} className={classes.item}>
+                {formatMessage(intl, "idps", "performance.garbageAvailability")}
                 <NumberInput
                   module="idps"
-                  label="performance.garbageAvailability"
+                  label=""
                   required={true}
                   readOnly={readOnly}
                   value={!!edited && !!edited.garbageAvailability ? edited.garbageAvailability : ""}
                   onChange={(v) => this.updateAttribute("garbageAvailability", v)}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+            </Grid>
+            <Grid container className={classes.item}>
+              <Grid item xs={6} className={classes.item}>
+                {formatMessage(intl, "idps", "performance.cleanliness")}
                 <NumberInput
                   module="idps"
-                  label="performance.cleanliness"
+                  label=""
                   required={true}
                   readOnly={readOnly}
                   value={!!edited && !!edited.cleanliness ? edited.cleanliness : ""}
                   onChange={(v) => this.updateAttribute("cleanliness", v)}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+              <Grid item xs={6} className={classes.item}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -153,20 +166,24 @@ class PerfomanceMasterPanel extends FormPanel {
                   label={formatMessage(intl, "idps", "performance.wasteSeparation")}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+            </Grid>
+            <Grid container className={classes.item}>
+              <Grid item xs={6} className={classes.item}>
+                {formatMessage(intl, "idps", "performance.functionalToilets")}
                 <NumberInput
                   module="idps"
-                  label="performance.functionalToilets"
+                  label=""
                   required={true}
                   readOnly={readOnly}
                   value={!!edited && !!edited.functionalToilets ? edited.functionalToilets : ""}
                   onChange={(v) => this.updateAttribute("functionalToilets", v)}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+              <Grid item xs={6} className={classes.item}>
+                {formatMessage(intl, "idps", "performance.sterilizationTools")}
                 <NumberInput
                   module="idps"
-                  label="performance.sterilizationTools"
+                  label=""
                   required={true}
                   readOnly={readOnly}
                   value={!!edited && !!edited.sterilizationTools ? edited.sterilizationTools : ""}
@@ -176,9 +193,10 @@ class PerfomanceMasterPanel extends FormPanel {
             </Grid>
             <Grid container className={classes.item}>
               <Grid item xs={2} className={classes.item}>
+                {formatMessage(intl, "idps", "performance.totalScore")}
                 <NumberInput
                   module="idps"
-                  label="performance.totalScore"
+                  label=""
                   readOnly={true}
                   value={!!edited && !!edited.totalScore ? edited.totalScore : ""}
                 />
