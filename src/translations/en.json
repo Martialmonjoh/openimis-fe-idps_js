@@ -32,5 +32,6 @@
     "idps.performance.month.October": "October",
     "idps.performance.month.May": "May",
     "idps.performance.month.November": "November",
-    "idps.performance.month.December": "December"
+    "idps.performance.month.December": "December",
+    "idps.year.null": ""
 }
