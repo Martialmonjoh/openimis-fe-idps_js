@@ -71,6 +71,7 @@ class PerfomanceMasterPanel extends FormPanel {
                   module="idps"
                   label="performance.year"
                   required={true}
+                  onChange={(v) => this.updateAttribute("year", v)}
                 />
               </Grid>
               <Grid item xs={7} className={classes.item}>
