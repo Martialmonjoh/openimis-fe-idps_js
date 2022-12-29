@@ -35,13 +35,11 @@ class PerformanceYearPicker extends Component {
       module,
       label,
       nullLabel = "year.null",
-      min,
-      max,
       withNull = true,
     } = this.props;
     const { value } = this.state;
     if (!withNull && value === null) return null;
-    
+
     const options = withNull
       ? [
         {
@@ -65,7 +63,7 @@ class PerformanceYearPicker extends Component {
         options={options}
         name={name}
         value={value}
-        onChange={this._onChange}/>
+        onChange={this._onChange} />
     );
   }
 }

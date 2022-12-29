@@ -1,6 +1,6 @@
 import React, { Component, Fragment, useState } from "react";
 import { withTheme, withStyles } from "@material-ui/core/styles";
-import { Paper, Grid, Typography, Divider, Checkbox, FormControlLabel } from "@material-ui/core";
+import { Paper, Box, Grid, Typography, Divider, Checkbox, FormControlLabel } from "@material-ui/core";
 import {
   formatMessage,
   FormattedMessage,
@@ -28,7 +28,7 @@ const styles = (theme) => ({
 //const selectedYear = useState(null);
 
 class PerfomanceMasterPanel extends FormPanel {
-  
+
 
   render() {
     const {
@@ -40,7 +40,7 @@ class PerfomanceMasterPanel extends FormPanel {
       readOnly = false,
       actions,
     } = this.props;
-    
+
     return (
       <Grid container>
         <Grid item xs={12}>
@@ -52,9 +52,8 @@ class PerfomanceMasterPanel extends FormPanel {
                 </Typography>
               </Grid>
             </Grid>
-            <Divider />
             <Grid container className={classes.item}>
-              <Grid item xs={3} className={classes.item}>
+              <Grid item xs={2} className={classes.item}>
                 <PerformanceMonthPicker
                   value={!!edited ? edited.month : null}
                   module="idps"
@@ -65,7 +64,7 @@ class PerfomanceMasterPanel extends FormPanel {
                   onChange={(v) => this.updateAttribute("month", v)}
                 />
               </Grid>
-              <Grid item xs={2} className={classes.item}>
+              <Grid item xs={1} className={classes.item}>
                 <PerformanceYearPicker
                   value={!!edited ? edited.year : null}
                   module="idps"
@@ -74,7 +73,7 @@ class PerfomanceMasterPanel extends FormPanel {
                   onChange={(v) => this.updateAttribute("year", v)}
                 />
               </Grid>
-              <Grid item xs={7} className={classes.item}>
+              <Grid item xs={4} className={classes.item}>
                 <PublishedComponent
                   pubRef="location.HealthFacilityPicker"
                   module="idps"
@@ -88,9 +87,11 @@ class PerfomanceMasterPanel extends FormPanel {
                 />
               </Grid>
             </Grid>
-            <Grid container className={classes.item}>
-              <Grid item xs={4} className={classes.item} alignItems="center">
+            <Grid className={classes.item}>
+              <Grid className={classes.item}>
                 {formatMessage(intl, "idps", "perfomance.promptness")}
+              </Grid>
+              <Grid item xs={1} className={classes.item}>
                 <NumberInput
                   module="idps"
                   label=""
@@ -100,8 +101,12 @@ class PerfomanceMasterPanel extends FormPanel {
                   onChange={(v) => this.updateAttribute("promptness", v)}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+            </Grid>
+            <Grid className={classes.item}>
+              <Grid className={classes.item}>
                 {formatMessage(intl, "idps", "performance.rejectionDegree")}
+              </Grid>
+              <Grid xs={1} className={classes.item}>
                 <NumberInput
                   module="idps"
                   label=""
@@ -111,8 +116,12 @@ class PerfomanceMasterPanel extends FormPanel {
                   onChange={(v) => this.updateAttribute("rejectionDegree", v)}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+            </Grid>
+            <Grid className={classes.item}>
+              <Grid className={classes.item}>
                 {formatMessage(intl, "idps", "performance.qualifiedPersonnel")}
+              </Grid>
+              <Grid item xs={1} className={classes.item}>
                 <NumberInput
                   module="idps"
                   label=""
@@ -122,10 +131,13 @@ class PerfomanceMasterPanel extends FormPanel {
                   onChange={(v) => this.updateAttribute("qualifiedPersonnel", v)}
                 />
               </Grid>
+
             </Grid>
-            <Grid container className={classes.item}>
-              <Grid item xs={4} className={classes.item}>
+            <Grid className={classes.item}>
+              <Grid className={classes.item}>
                 {formatMessage(intl, "idps", "performance.garbageAvailability")}
+              </Grid>
+              <Grid item xs={1} className={classes.item}>
                 <NumberInput
                   module="idps"
                   label=""
@@ -135,8 +147,12 @@ class PerfomanceMasterPanel extends FormPanel {
                   onChange={(v) => this.updateAttribute("garbageAvailability", v)}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+            </Grid>
+            <Grid className={classes.item}>
+              <Grid className={classes.item}>
                 {formatMessage(intl, "idps", "performance.cleanliness")}
+              </Grid>
+              <Grid item xs={1} className={classes.item}>
                 <NumberInput
                   module="idps"
                   label=""
@@ -146,7 +162,54 @@ class PerfomanceMasterPanel extends FormPanel {
                   onChange={(v) => this.updateAttribute("cleanliness", v)}
                 />
               </Grid>
-              <Grid item xs={4} className={classes.item}>
+            </Grid>
+            <Grid className={classes.item}>
+              <Grid className={classes.item}>
+                {formatMessage(intl, "idps", "performance.permanentAvailability")}
+              </Grid>
+              <Grid item xs={1} className={classes.item}>
+                <NumberInput
+                  module="idps"
+                  label=""
+                  required={true}
+                  readOnly={readOnly}
+                  value={!!edited && !!edited.permanentAvailability ? edited.permanentAvailability : ""}
+                  onChange={(v) => this.updateAttribute("permanentAvailability", v)}
+                />
+              </Grid>
+            </Grid>
+            <Grid className={classes.item}>
+              <Grid className={classes.item}>
+                {formatMessage(intl, "idps", "performance.functionalToilets")}
+              </Grid>
+              <Grid item xs={1} className={classes.item}>
+                <NumberInput
+                  module="idps"
+                  label=""
+                  required={true}
+                  readOnly={readOnly}
+                  value={!!edited && !!edited.functionalToilets ? edited.functionalToilets : ""}
+                  onChange={(v) => this.updateAttribute("functionalToilets", v)}
+                />
+              </Grid>
+            </Grid>
+            <Grid className={classes.item}>
+              <Grid className={classes.item}>
+                {formatMessage(intl, "idps", "performance.sterilizationTools")}
+              </Grid>
+              <Grid item xs={1} className={classes.item}>
+                <NumberInput
+                  module="idps"
+                  label=""
+                  required={true}
+                  readOnly={readOnly}
+                  value={!!edited && !!edited.sterilizationTools ? edited.sterilizationTools : ""}
+                  onChange={(v) => this.updateAttribute("sterilizationTools", v)}
+                />
+              </Grid>
+            </Grid>
+            <Grid className={classes.item}>
+              <Grid item xs={5} className={classes.item}>
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -160,44 +223,11 @@ class PerfomanceMasterPanel extends FormPanel {
                 />
               </Grid>
             </Grid>
-            <Grid container className={classes.item}>
-              <Grid item xs={6} className={classes.item}>
-                {formatMessage(intl, "idps", "performance.permanentAvailability")}
-                <NumberInput
-                  module="idps"
-                  label=""
-                  required={true}
-                  readOnly={readOnly}
-                  value={!!edited && !!edited.permanentAvailability ? edited.permanentAvailability : ""}
-                  onChange={(v) => this.updateAttribute("permanentAvailability", v)}
-                />
-              </Grid>
-              <Grid item xs={6} className={classes.item}>
-                {formatMessage(intl, "idps", "performance.functionalToilets")}
-                <NumberInput
-                  module="idps"
-                  label=""
-                  required={true}
-                  readOnly={readOnly}
-                  value={!!edited && !!edited.functionalToilets ? edited.functionalToilets : ""}
-                  onChange={(v) => this.updateAttribute("functionalToilets", v)}
-                />
-              </Grid>
-            </Grid>
-            <Grid container className={classes.item}>
-              <Grid item xs={4} className={classes.item}>
-                {formatMessage(intl, "idps", "performance.sterilizationTools")}
-                <NumberInput
-                  module="idps"
-                  label=""
-                  required={true}
-                  readOnly={readOnly}
-                  value={!!edited && !!edited.sterilizationTools ? edited.sterilizationTools : ""}
-                  onChange={(v) => this.updateAttribute("sterilizationTools", v)}
-                />
-              </Grid>
-              <Grid item xs={2} className={classes.item}>
+            <Grid className={classes.item}>
+              <Grid className={classes.item}>
                 {formatMessage(intl, "idps", "performance.totalScore")}
+              </Grid>
+              <Grid item xs={1} className={classes.item}>
                 <NumberInput
                   module="idps"
                   label=""
@@ -205,7 +235,7 @@ class PerfomanceMasterPanel extends FormPanel {
                   value={!!edited && !!edited.totalScore ? edited.totalScore : ""}
                 />
               </Grid>
-            </Grid> 
+            </Grid>
           </Paper>
         </Grid>
       </Grid>
