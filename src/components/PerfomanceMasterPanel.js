@@ -1,15 +1,11 @@
 import React, { Component, Fragment, useState } from "react";
 import { withTheme, withStyles } from "@material-ui/core/styles";
-import { Paper, Box, Grid, Typography, Divider, Checkbox, FormControlLabel } from "@material-ui/core";
+import { Paper, Box, Grid, Typography, Checkbox, FormControlLabel } from "@material-ui/core";
 import {
   formatMessage,
   FormattedMessage,
-  formatMessageWithValues,
   PublishedComponent,
   FormPanel,
-  TextInput,
-  MonthPicker,
-  YearPicker,
   NumberInput,
   withModulesManager,
 } from "@openimis/fe-core";
@@ -25,10 +21,15 @@ const styles = (theme) => ({
   },
 });
 
-//const selectedYear = useState(null);
 
 class PerfomanceMasterPanel extends FormPanel {
 
+  updateAttribute = (attr, v) => {
+    let edited = {...this.props.edited};
+    edited[attr] = v;
+    console.log(edited)
+    this.props.onEditedChanged(edited);
+  };
 
   render() {
     const {
@@ -53,7 +54,7 @@ class PerfomanceMasterPanel extends FormPanel {
               </Grid>
             </Grid>
             <Grid container className={classes.item}>
-              <Grid item xs={2} className={classes.item}>
+              <Grid item xs={3} className={classes.item}>
                 <PerformanceMonthPicker
                   value={!!edited ? edited.month : null}
                   module="idps"
@@ -64,7 +65,7 @@ class PerfomanceMasterPanel extends FormPanel {
                   onChange={(v) => this.updateAttribute("month", v)}
                 />
               </Grid>
-              <Grid item xs={1} className={classes.item}>
+              <Grid item xs={2} className={classes.item}>
                 <PerformanceYearPicker
                   value={!!edited ? edited.year : null}
                   module="idps"
@@ -83,7 +84,7 @@ class PerfomanceMasterPanel extends FormPanel {
                   required={true}
                   withNull={true}
                   nullLabel={formatMessage(intl, "idps", "perfomance.healthFacility.none")}
-                  onChange={(v) => this.updateAttribute("healthFacility", !edited || !edited.healthFacility)}
+                  onChange={(v) => this.updateAttribute("healthFacility", v)}
                 />
               </Grid>
             </Grid>
@@ -144,7 +145,7 @@ class PerfomanceMasterPanel extends FormPanel {
                   required={true}
                   readOnly={readOnly}
                   value={!!edited && !!edited.garbageAvailability ? edited.garbageAvailability : ""}
-                  onChange={(v) => this.updateAttribute("garbageAvailability", v)}
+                  onChange={(v) => this.updateAttribute(`garbageAvailability`, v)}
                 />
               </Grid>
             </Grid>
