@@ -33,5 +33,6 @@
     "idps.performance.month.May": "May",
     "idps.performance.month.November": "November",
     "idps.performance.month.December": "December",
-    "idps.year.null": ""
+    "idps.year.null": "",
+    "idps.CreatePerformance.mutationLabel": "Create performance - {label}"
 }

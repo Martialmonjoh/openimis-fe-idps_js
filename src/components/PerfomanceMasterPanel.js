@@ -25,7 +25,7 @@ const styles = (theme) => ({
 class PerfomanceMasterPanel extends FormPanel {
 
   updateAttribute = (attr, v) => {
-    let edited = {...this.props.edited};
+    let edited = { ...this.props.edited };
     edited[attr] = v;
     console.log(edited)
     this.props.onEditedChanged(edited);
@@ -224,19 +224,21 @@ class PerfomanceMasterPanel extends FormPanel {
                 />
               </Grid>
             </Grid>
-            <Grid className={classes.item}>
+            {!!edited && !!edited.totalScore && (
               <Grid className={classes.item}>
-                {formatMessage(intl, "idps", "performance.totalScore")}
+                <Grid className={classes.item}>
+                  {formatMessage(intl, "idps", "performance.totalScore")}
+                </Grid>
+                <Grid item xs={1} className={classes.item}>
+                  <NumberInput
+                    module="idps"
+                    label=""
+                    readOnly={true}
+                    value={!!edited && !!edited.totalScore ? edited.totalScore : ""}
+                  />
+                </Grid>
               </Grid>
-              <Grid item xs={1} className={classes.item}>
-                <NumberInput
-                  module="idps"
-                  label=""
-                  readOnly={true}
-                  value={!!edited && !!edited.totalScore ? edited.totalScore : ""}
-                />
-              </Grid>
-            </Grid>
+            )}
           </Paper>
         </Grid>
       </Grid>

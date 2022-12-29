@@ -24,9 +24,7 @@ class PerfomanceForm extends Component {
     if (!this.state.performance.month) return false;
     if (!this.state.performance.year) return false;
     if (!this.state.performance.healthFacility) return false;
-    if (!this.state.performance.promptness) return false;
     if (!this.state.performance.permanentAvailability) return false;
-    if (!this.state.performance.rejectionDegree) return false;
     if (!this.state.performance.qualifiedPersonnel) return false;
     if (!this.state.performance.garbageAvailability) return false;
     if (!this.state.performance.cleanliness) return false;

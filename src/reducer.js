@@ -25,5 +25,13 @@ function reducer(
                 delete s.claimAdmin;
             }
             return s;
+        case "PERFORMANCE_MUTATION_REQ":
+            return dispatchMutationReq(state, action);
+        case "PERFORMANCE_MUTATION_ERR":
+            return dispatchMutationErr(state, action);
+        case "PERFORMANCE_CREATE_PERFORMANCE_RESP":
+            return dispatchMutationResp(state, "createPerformance", action);
     }
 }
+
+export default reducer;
