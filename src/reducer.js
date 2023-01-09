@@ -10,7 +10,9 @@ import {
 
 function reducer(
     state = {
-
+        performance: {},
+        mutation: {},
+        errorClaim: null,
     },
     action,
 ) {

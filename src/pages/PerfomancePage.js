@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withTheme, withStyles } from "@material-ui/core/styles";
 import PerfomanceForm from "../components/PerfomanceForm";
-import { formatMessageWithValues, withModulesManager } from "@openimis/fe-core";
+import { formatMessageWithValues, withModulesManager, withHistory, historyPush } from "@openimis/fe-core";
 import { createPerformance } from "../actions";
 
 const styles = theme => ({
@@ -14,6 +14,10 @@ const styles = theme => ({
 
 
 class PerfomancePage extends Component {
+
+    add = () => {
+        historyPush(this.props.modulesManager, this.props.history, "idps.route.performance");
+    };
 
     save = (performance) => {
         this.props.createPerformance(
@@ -30,6 +34,7 @@ class PerfomancePage extends Component {
         return (
             <PerfomanceForm
                 save={this.save}
+                add={this.add}
             />
         )
     }
@@ -40,4 +45,6 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ createPerformance }, dispatch);
 };
 
-export default withModulesManager(connect(mapDispatchToProps)(injectIntl(withTheme(withStyles(styles)(PerfomancePage)))));
+export default withHistory(
+    withModulesManager(connect(mapDispatchToProps)(injectIntl(withTheme(withStyles(styles)(PerfomancePage)))))
+);

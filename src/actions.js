@@ -1,4 +1,4 @@
-import { formatPageQuery, graphql,formatMutation, formatGQLString } from "@openimis/fe-core";
+import { formatPageQuery, graphql, formatMutation, formatGQLString } from "@openimis/fe-core";
 
 export function selectHealthFacility(hf) {
   return (dispatch) => {
@@ -7,7 +7,8 @@ export function selectHealthFacility(hf) {
 }
 
 export function createPerformance(mm, performance, clientMutationLabel) {
-  let mutation = formatMutation("createPerformance", formatPerformanceGQL(mm, performance),clientMutationLabel);
+  
+  let mutation = formatMutation("createPerformance", formatPerformanceGQL(mm, performance), clientMutationLabel);
   var requestedDateTime = new Date();
   return graphql(mutation.payload, ["PERFORMANCE_MUTATION_REQ", "PERFORMANCE_CREATE_PERFORMANCE_RESP", "PERFORMANCE_MUTATION_ERR"], {
     clientMutationId: mutation.clientMutationId,
@@ -18,17 +19,16 @@ export function createPerformance(mm, performance, clientMutationLabel) {
 
 export function formatPerformanceGQL(mm, performance) {
   return `
-    ${!!performance.month ? `month: "${formatGQLString(performance.month)}"` : ""}
-    ${!!performance.year ? `year: "${formatGQLString(performance.year)}"` : ""}
-    ${!!performance.promptness ? `promptness: "${formatGQLString(performance.promptness)}"` : ""}
-    ${!!performance.rejectionDegree ? `rejectionDegree: "${performance.rejectionDegree}"` : ""}
-    ${!!performance.qualifiedPersonnel ? `qualifiedPersonnel: "${performance.qualifiedPersonnel}"` : ""}
-    ${!!performance.garbageAvailability ? `garbageAvailability: "${performance.garbageAvailability}"` : ""}
-    ${!!performance.cleanliness ? `cleanliness: "${formatGQLString(performance.cleanliness)}"` : ""}
-    ${!!performance.permanentAvailability ? `permanentAvailability: "${formatGQLString(performance.permanentAvailability)}"` : ""}
-    ${!!performance.functionalToilets ? `functionalToilets: "${formatGQLString(performance.functionalToilets)}"` : ""}
-    wasteSeparation:${!!performance.wasteSeparation}
-    ${!!performance.sterilizationTools ? `sterilizationTools: ${performance.sterilizationTools}` : ""}
-    ${!!insuree.jsonExt ? `jsonExt: ${formatJsonField(insuree.jsonExt)}` : ""}
+    month: "${performance.month}"
+    year: "${performance.year}"
+    promptness: "${performance.promptness}"
+    rejectionDegree: "${performance.rejectionDegree}"
+    qualifiedPersonnel: "${performance.qualifiedPersonnel}"
+    garbageAvailability: "${performance.garbageAvailability}"
+    cleanliness: "${performance.cleanliness}"
+    permanentAvailability: "${performance.permanentAvailability}"
+    functionalToilets: "${performance.functionalToilets}"
+    wasteSeparation: "${performance.wasteSeparation}"
+    sterilizationTools: "${performance.sterilizationTools}"
   `;
 }
