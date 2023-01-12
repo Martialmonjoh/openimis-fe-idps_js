@@ -1,5 +1,5 @@
 {
-    "idps.menu.perfomance": "Performance criteria",
+    "idps.menu.perfomance": "Performances",
     "idps.mainMenu": "Idps",
     "idps.card": "Card Number",
     "idps.email": "Email",
@@ -34,5 +34,12 @@
     "idps.performance.month.November": "November",
     "idps.performance.month.December": "December",
     "idps.year.null": "",
-    "idps.CreatePerformance.mutationLabel": "Create performance - {label}"
+    "idps.CreatePerformance.mutationLabel": "Create performance - {label}",
+    "idps.healthfacilities.performance": "Healthfacilities Performances",
+    "idps.newPerformance.tooltip": "Add healthfacilitie Performances",
+    "idps.performanceSummaries.month": "Month",
+    "idps.performanceSummaries.year": "Year",
+    "idps.performanceSummaries.healthfacility": "Healthfacility",
+    "idps.performanceSummaries.scrore": "Score",
+    "idps.performanceSummaries": "Healthfacilities Performances"
 }

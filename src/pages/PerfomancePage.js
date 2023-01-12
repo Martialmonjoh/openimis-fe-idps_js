@@ -15,10 +15,6 @@ const styles = theme => ({
 
 class PerfomancePage extends Component {
 
-    add = () => {
-        historyPush(this.props.modulesManager, this.props.history, "idps.route.performance");
-    };
-
     save = (performance) => {
         this.props.createPerformance(
             this.props.modulesManager,

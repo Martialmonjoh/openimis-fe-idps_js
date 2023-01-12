@@ -10,7 +10,7 @@ class IdpsMainMenu extends Component {
         entries.push({
             text: formatMessage(intl, "idps", "menu.perfomance"),
             icon: <FormatAlignLeft/>,
-            route: "/idps/perfomances"
+            route: "/idps/performances"
         });
 
         if(!entries.length) return null;
