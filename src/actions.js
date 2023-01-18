@@ -19,8 +19,12 @@ export function createPerformance(mm, performance, clientMutationLabel) {
 
 export function formatPerformanceGQL(mm, performance) {
   const date = new Date(`${performance.month} 1, ${performance.year}`)
+  let monthNumber = date.getMonth() + 1;
+  if(monthNumber < 10){
+    monthNumber = `0${monthNumber}`;
+  }
   return `
-    ${!!performance.month && !!performance.year ? `date: "${performance.year}-${date.getMonth() + 1}"` : ""}
+    ${!!performance.month && !!performance.year ? `date: "${performance.year}-${monthNumber}"` : ""}
     ${!!performance.promptness ? `promptness: ${performance.promptness}` : ""}
     ${!!performance.healthFacility && !!performance.healthFacility.id ? `healthFacility: ${decodeId(performance.healthFacility.id)}` : ""}
     ${!!performance.rejectionDegree ? `rejectionDegree: ${performance.rejectionDegree}` : ""}
