@@ -26,7 +26,7 @@ class PerfomanceForm extends Component {
     if (!this.state.performance.month) return false;
     if (!this.state.performance.year) return false;
     if (!this.state.performance.healthFacility) return false;
-    if (!this.state.performance.permanentAvailability) return false;
+    if (!this.state.performance.medecineAvailability) return false;
     if (!this.state.performance.qualifiedPersonnel) return false;
     if (!this.state.performance.garbageAvailability) return false;
     if (!this.state.performance.cleanliness) return false;
@@ -36,13 +36,18 @@ class PerfomanceForm extends Component {
     return true;
   };
 
+  back = (e) => {
+    const { modulesManager, history } = this.props;
+    historyPush(modulesManager, history, "idps.route.performances");
+  };
+
   onEditedChanged = (performance) => {
     this.setState({ performance, newPerformance: false });
   };
 
-  _save = () => {
+  _save = (performance) => {
     this.setState(
-      { lockNew: !performance.uuid }, // avoid duplicates
+      { lockNew: !performance.id }, // avoid duplicates
       (e) => this.props.save(performance),
     );
   };
@@ -68,6 +73,8 @@ class PerfomanceForm extends Component {
     );
   };
 
+  
+
   render() {
     const {
       intl,
@@ -83,6 +90,7 @@ class PerfomanceForm extends Component {
         edited={this.state.performance}
         performance={this.state.performance}
         onEditedChanged={this.onEditedChanged}
+        back={this.back}
         canSave={this.canSave}
         save={!!save ? this._save : null}
         add={!!add && !this.state.newPerfomance ? this._add : null}

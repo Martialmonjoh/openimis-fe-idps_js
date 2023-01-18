@@ -15,32 +15,41 @@ const styles = theme => ({
 
 class PerfomancePage extends Component {
 
+    add = () => {
+        historyPush(this.props.modulesManager, this.props.history, "idps.route.performance");
+    };
+
     save = (performance) => {
         this.props.createPerformance(
             this.props.modulesManager,
             performance,
-            formatMessageWithValues(this.props.intl, "idps", "CreatePerformance.mutationLabel", {
-                label: !!performance.uuid ? performance.uuid : "",
+            formatMessageWithValues(this.props.intl, "idps", "CreateCriteria.mutationLabel", {
+                label: !!performance.id ? performance.id : "",
             }),
         );
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, modulesManager, history } = this.props;
         return (
             <PerfomanceForm
                 save={this.save}
                 add={this.add}
+                back={(e) => historyPush(modulesManager, history, "idps.route.performances")}
             />
         )
     }
 
 }
 
+const mapStateToProps = (state, props) => ({
+
+});
+
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({ createPerformance }, dispatch);
 };
 
 export default withHistory(
-    withModulesManager(connect(mapDispatchToProps)(injectIntl(withTheme(withStyles(styles)(PerfomancePage)))))
+    withModulesManager(connect(mapStateToProps, mapDispatchToProps)(injectIntl(withTheme(withStyles(styles)(PerfomancePage)))))
 );

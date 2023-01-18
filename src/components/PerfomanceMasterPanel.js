@@ -166,7 +166,7 @@ class PerfomanceMasterPanel extends FormPanel {
             </Grid>
             <Grid className={classes.item}>
               <Grid className={classes.item}>
-                {formatMessage(intl, "idps", "performance.permanentAvailability")}
+                {formatMessage(intl, "idps", "performance.medecineAvailability")}
               </Grid>
               <Grid item xs={1} className={classes.item}>
                 <NumberInput
@@ -175,7 +175,7 @@ class PerfomanceMasterPanel extends FormPanel {
                   required={true}
                   readOnly={readOnly}
                   value={!!edited && !!edited.permanentAvailability ? edited.permanentAvailability : ""}
-                  onChange={(v) => this.updateAttribute("permanentAvailability", v)}
+                  onChange={(v) => this.updateAttribute("medecineAvailability", v)}
                 />
               </Grid>
             </Grid>
