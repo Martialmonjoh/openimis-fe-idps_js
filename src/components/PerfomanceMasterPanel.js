@@ -90,36 +90,6 @@ class PerfomanceMasterPanel extends FormPanel {
             </Grid>
             <Grid className={classes.item}>
               <Grid className={classes.item}>
-                {formatMessage(intl, "idps", "perfomance.promptness")}
-              </Grid>
-              <Grid item xs={1} className={classes.item}>
-                <NumberInput
-                  module="idps"
-                  label=""
-                  required={true}
-                  readOnly={true}
-                  value={!!edited && !!edited.promptness ? edited.promptness : ""}
-                  onChange={(v) => this.updateAttribute("promptness", v)}
-                />
-              </Grid>
-            </Grid>
-            <Grid className={classes.item}>
-              <Grid className={classes.item}>
-                {formatMessage(intl, "idps", "performance.rejectionDegree")}
-              </Grid>
-              <Grid xs={1} className={classes.item}>
-                <NumberInput
-                  module="idps"
-                  label=""
-                  required={true}
-                  readOnly={true}
-                  value={!!edited && !!edited.rejectionDegree ? edited.rejectionDegree : ""}
-                  onChange={(v) => this.updateAttribute("rejectionDegree", v)}
-                />
-              </Grid>
-            </Grid>
-            <Grid className={classes.item}>
-              <Grid className={classes.item}>
                 {formatMessage(intl, "idps", "performance.qualifiedPersonnel")}
               </Grid>
               <Grid item xs={1} className={classes.item}>

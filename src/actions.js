@@ -24,10 +24,8 @@ export function formatPerformanceGQL(mm, performance) {
     monthNumber = `0${monthNumber}`;
   }
   return `
-    ${!!performance.month && !!performance.year ? `date: "${performance.year}-${monthNumber}"` : ""}
-    ${!!performance.promptness ? `promptness: ${performance.promptness}` : ""}
+    ${!!performance.month && !!performance.year ? `period: "${performance.year}-${monthNumber}"` : ""}
     ${!!performance.healthFacility && !!performance.healthFacility.id ? `healthFacility: ${decodeId(performance.healthFacility.id)}` : ""}
-    ${!!performance.rejectionDegree ? `rejectionDegree: ${performance.rejectionDegree}` : ""}
     ${!!performance.qualifiedPersonnel ? `qualifiedPersonnel: ${performance.qualifiedPersonnel}` : ""}
     ${!!performance.garbageAvailability ? `garbagecanAvailability: ${performance.garbageAvailability}` : ""}
     ${!!performance.cleanliness ? `roomsCleaness: ${performance.cleanliness}` : ""}
