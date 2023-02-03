@@ -29,17 +29,6 @@ class PerformanceSearcher extends Component {
     reset: 0,
   };
 
-  constructor(props) {
-    super(props);
-    this.rowsPerPageOptions = props.modulesManager.getConf(
-      "fe-idps",
-      "performanceFilter.rowsPerPageOptions",
-      [10, 20, 50, 100],
-    );
-    this.defaultPageSize = props.modulesManager.getConf("fe-idps", "performanceFilter.defaultPageSize", 10);
-    this.locationLevels = this.props.modulesManager.getConf("fe-location", "location.Location.MaxLevels", 4);
-  }
-
   canSelectAll = (selection) =>
     this.props.performances.map((s) => s.id).filter((s) => !selection.map((s) => s.id).includes(s)).length;
 
@@ -69,10 +58,13 @@ class PerformanceSearcher extends Component {
 
   headers = (filters) => {
     var h = [
-      "idps.performanceSummaries.period",
-      "idps.performanceSummaries.healthFacility",
-      "idps.performanceSummaries.score",
-      "",
+      "performanceSummaries.healthFacility",
+      "performanceSummaries.score",
+      "performanceSummaries.period",
+      "performanceSummaries.promptnessSubmission",
+      "performanceSummaries.degreOfRejection",
+      "performanceSummaries.medecineAvailability",
+      "performanceSummaries.qualifiedPersonnel",
     ];
     return h.filter(Boolean);
   };
@@ -96,7 +88,6 @@ class PerformanceSearcher extends Component {
 
   itemFormatters = (filters) => {
     var formatters = [
-      (performance) => performance.period,
       (performance) => (
         <PublishedComponent
           readOnly={true}
@@ -106,32 +97,12 @@ class PerformanceSearcher extends Component {
         />
       ),
       (performance) => performance.hfScore,
+      (performance) => performance.period,
+      (performance) => performance.promptnessSubmission,
+      (performance) => performance.degreOfRejection,
+      (performance) => performance.medecineAvailability,
+      (performance) => performance.qualifiedPersonnel,
     ];
-    formatters.push(
-      (performance) => (
-        <Grid container wrap="nowrap" spacing="2">
-          <Grid item>
-            <IconButton
-              size="small"
-              onClick={(e) => !performance.clientMutationId && this.setState({ open: true, id: performance.id })}
-            >
-              <SearchIcon />
-            </IconButton>
-          </Grid>
-
-          <Grid item>
-            <Tooltip title={formatMessage(this.props.intl, "insuree", "insureeSummaries.openNewTabButton.tooltip")}>
-              <IconButton
-                size="small"
-                onClick={(e) => !performance.clientMutationId && this.props.onDoubleClick(performance, true)}
-              >
-                <TabIcon />
-              </IconButton>
-            </Tooltip>
-          </Grid>
-        </Grid>
-      ),
-    );
     return formatters.filter(Boolean);
   };
 
@@ -142,7 +113,6 @@ class PerformanceSearcher extends Component {
     const {
       intl,
       performances,
-      performancesPageInfo,
       fetchingPerformances,
       fetchedPerformances,
       errorPerformances,
@@ -151,7 +121,11 @@ class PerformanceSearcher extends Component {
       onDoubleClick,
     } = this.props;
 
-    let count = performancesPageInfo.totalCount;
+    let count = performances.length;
+
+    let performancesPageInfo = {
+      totalCount: count
+    }
 
     return (
       <Fragment>
@@ -165,7 +139,6 @@ class PerformanceSearcher extends Component {
           fetchingItems={fetchingPerformances}
           fetchedItems={fetchedPerformances}
           errorItems={errorPerformances}
-          contributionKey={IDPS_SEARCHER_CONTRIBUTION_KEY}
           tableTitle={formatMessageWithValues(intl, "idps", "performanceSummaries", { count })}
           rowsPerPageOptions={this.rowsPerPageOptions}
           defaultPageSize={this.defaultPageSize}
@@ -188,7 +161,6 @@ class PerformanceSearcher extends Component {
 
 const mapStateToProps = (state) => ({
   performances: state.idps.performances,
-  performancesPageInfo: state.idps.performancesPageInfo,
   fetchingPerformances: state.idps.fetchingPerformances,
   fetchedPerformances: state.idps.fetchedPerformances,
   errorPerformances: state.idps.errorPerformances,

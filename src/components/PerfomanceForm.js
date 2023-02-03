@@ -86,11 +86,10 @@ class PerfomanceForm extends Component {
       <Form
         module="idps"
         reset={this.state.reset}
-        Panels={[PerfomanceMasterPanel]}
         edited={this.state.performance}
+        HeadPanel={PerfomanceMasterPanel}
         performance={this.state.performance}
         onEditedChanged={this.onEditedChanged}
-        back={this.back}
         canSave={this.canSave}
         save={!!save ? this._save : null}
         add={!!add && !this.state.newPerfomance ? this._add : null}

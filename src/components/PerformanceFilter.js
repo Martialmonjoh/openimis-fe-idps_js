@@ -14,6 +14,8 @@ import {
   NumberInput,
 } from "@openimis/fe-core";
 import { selectHealthFacility } from "../actions";
+import PerformanceMonthPicker from "../pickers/PerformanceMonthPicker";
+import PerformanceYearPicker from "../pickers/PerformanceYearPicker";
 
 const styles = (theme) => ({
   dialogTitle: theme.dialog.title,
@@ -94,13 +96,35 @@ class PerformanceFilter extends Component {
       <Grid container className={classes.form}>
         <ControlledField
           module="idps"
-          id="PerformanceFilter.period"
+          id="performanceFilter.period"
           field={
             <Grid item xs={2} className={classes.item}>
-              <TextInput
+              <PerformanceMonthPicker
                 module="idps"
-                label="Performance.period"
-                name="period"
+                label="performance.month"
+                value={this._filterValue("period")}
+                withNull={true}
+                onChange={(v) =>
+                  this.debouncedOnChangeFilter([
+                    {
+                      id: "period",
+                      value: v,
+                      filter: `period_Istartswith: "${v}"`,
+                    },
+                  ])
+                }
+              />
+            </Grid>
+          }
+        />
+        <ControlledField
+          module="idps"
+          id="performanceFilter.period"
+          field={
+            <Grid item xs={2} className={classes.item}>
+              <PerformanceYearPicker
+                module="idps"
+                label="performance.year"
                 value={this._filterValue("period")}
                 onChange={(v) =>
                   this.debouncedOnChangeFilter([
@@ -131,12 +155,14 @@ class PerformanceFilter extends Component {
         />
         <ControlledField
           module="idps"
-          id="PerformanceFilter.score"
+          id="performanceFilter.score"
           field={
             <Grid item xs={2} className={classes.item}>
               <NumberInput
                 value={this._filterValue("score")}
                 reset={this.state.reset}
+                module="idps"
+                label={"performanceFilter.score"}
                 onChange={(v) =>
                   this.debouncedOnChangeFilter([
                     {

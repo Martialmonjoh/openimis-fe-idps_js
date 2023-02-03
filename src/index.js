@@ -4,12 +4,14 @@ import PerfomancePage from "./pages/PerfomancePage";
 import PerformancesPage from "./pages/PerformancesPage";
 import PerformanceMonthPicker from "./pickers/PerformanceMonthPicker";
 import PerformanceYearPicker from "./pickers/PerformanceMonthPicker";
+import reducer from "./reducer"
 
 const ROUTE_IDPS_PERFORMANCE = "idps/performance";
 const ROUTE_IDPS_PERFORMANCES = "idps/performances";
 
 const DEFAULT_CONFIG = {
   "translations": [{ key: "en", messages: messages_en }],
+  "reducers": [{key: 'idps', reducer}],
   "refs": [
     { key: "idps.PerformanceMonthPicker", ref: PerformanceMonthPicker },
     { key: "idps.PerformanceYearPicker", ref: PerformanceYearPicker },

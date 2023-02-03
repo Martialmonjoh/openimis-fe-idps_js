@@ -1,4 +1,11 @@
-import { formatPageQuery, graphql, formatMutation,decodeId } from "@openimis/fe-core";
+import { 
+  formatPageQueryWithCount,
+  formatPageQuery,
+  formatQuery, 
+  graphql, 
+  formatMutation,
+  decodeId 
+} from "@openimis/fe-core";
 
 export function selectHealthFacility(hf) {
   return (dispatch) => {
@@ -36,7 +43,7 @@ export function formatPerformanceGQL(mm, performance) {
   `;
 }
 
-export function fetchPerformanceSummaries(mm, filters, withAttachmentsCount){
+export function fetchPerformanceSummaries(mm){
   var projections = [
     "id",
     "period",
@@ -53,8 +60,8 @@ export function fetchPerformanceSummaries(mm, filters, withAttachmentsCount){
     "degreOfRejection",
   ];
 
-  const payload = formatPageQuery("allCriteria",filters, projections);
-  return graphql(payload, "IDPS_PERFORMANCE_SEARCHER");
+  const payload = formatQuery("allCriteria",null, projections);
+  return graphql(payload, "IDPS_PERFORMANCES");
 }
 
 export function deletePerformance(mm, performance, clientMutationLabel) {

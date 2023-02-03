@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { injectIntl } from "react-intl";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 import { withTheme, withStyles } from "@material-ui/core/styles";
 import { Fab } from "@material-ui/core";
 import {
@@ -7,7 +9,10 @@ import {
     historyPush,
     withTooltip,
     formatMessage,
-    withModulesManager
+    withModulesManager,
+    ProgressOrError,
+    Table,
+    FormattedMessage
 } from "@openimis/fe-core";
 import AddIcon from "@material-ui/icons/Add";
 import PerformanceSearcher from "../components/PerformanceSearcher";
@@ -33,17 +38,14 @@ class PerformancesPage extends Component {
 
         return (
             <div className={classes.page}>
-                <PerformanceSearcher
-                    cacheFiltersKey="idpsPerformancesPageFiltersCache"
-                    onDoubleClick={this.onDoubleClick}
-                />
+                <PerformanceSearcher cacheFiltersKey="idpsPerformancePageFiltersCache" onDoubleClick={this.onDoubleClick} />
                 {withTooltip(
                     <div className={classes.fab}>
-                        <Fab color="primary" onClick={this.add}>
+                        <Fab color="primary" onClick={this.onAdd}>
                             <AddIcon />
                         </Fab>
                     </div>,
-                    formatMessage(intl, "idps", "newPerformance.tooltip")
+                    formatMessage(intl, "idps", "newPerformance.tooltip"),
                 )}
             </div>
         );
@@ -51,6 +53,4 @@ class PerformancesPage extends Component {
 
 }
 
-export default withHistory(
-    withModulesManager(injectIntl(withTheme(withStyles(styles)(PerformancesPage))))
-);
+export default injectIntl(withModulesManager((withTheme(withStyles(styles)(PerformancesPage)))));

@@ -17,7 +17,6 @@ function reducer(
         fetchedPerformances: false,
         errorPerformances: null,
         performances: [],
-        performancesPageInfo: { totalCount: 0 },
         submittingMutation: false,
         mutation: {},
     },
@@ -34,34 +33,28 @@ function reducer(
                 delete s.claimAdmin;
             }
             return s;
-        case "IDPS_PERFORMANCE_SEARCHER_REQ":
+        case "IDPS_PERFORMANCES_REQ":
             return {
                 ...state,
                 fetchingPerformances: true,
                 fetchedPerformances: false,
-                performances: null,
-                performancesPageInfo: { totalCount: 0 },
+                performances: [],
                 errorPerformances: null,
             };
-        case "IDPS_PERFORMANCE_SEARCHER_RESP":
+        case "IDPS_PERFORMANCES_RESP":
             return {
                 ...state,
                 fetchingPerformances: false,
                 fetchedPerformances: true,
-                performances: parseData(action.payload.data.allCriteria),
-                performancesPageInfo: pageInfo(action.payload.data.allCriteria),
+                performances: action.payload.data.allCriteria,
                 errorPerformances: formatGraphQLError(action.payload),
             };
-        case "IDPS_PERFORMANCE_SEARCHER_ERR":
+        case "IDPS_PERFORMANCES_ERR":
             return {
                 ...state,
                 fetchingPerformances: false,
                 errorPerformances: formatServerError(action.payload),
             };
-        case "IDPS_MUTATION_ERR_MUTATION_REQ":
-            return dispatchMutationReq(state, action);
-        case "IDPS_MUTATION_ERR":
-            return dispatchMutationErr(state, action);
         case "IDPS_MUTATION_REQ":
             return dispatchMutationReq(state, action);
         case "IDPS_MUTATION_ERR":
@@ -70,6 +63,8 @@ function reducer(
             return dispatchMutationResp(state, "createPerformance", action);
         case "IDPS_DELETE_PERFORMANCES_RESP":
             return dispatchMutationResp(state, "deletePerformances", action);
+        default:
+            return state
     }
 }
 
