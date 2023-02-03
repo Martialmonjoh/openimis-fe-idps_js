@@ -1,6 +1,6 @@
-import React, { Component, Fragment, useState } from "react";
+import React, {   } from "react";
 import { withTheme, withStyles } from "@material-ui/core/styles";
-import { Paper, Box, Grid, Typography, Checkbox, FormControlLabel } from "@material-ui/core";
+import { Paper, Grid, Typography, Checkbox, FormControlLabel } from "@material-ui/core";
 import {
   formatMessage,
   FormattedMessage,

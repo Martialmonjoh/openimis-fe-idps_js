@@ -1,4 +1,4 @@
-import { formatPageQuery, graphql, formatMutation, formatGQLString,decodeId } from "@openimis/fe-core";
+import { formatPageQuery, graphql, formatMutation,decodeId } from "@openimis/fe-core";
 
 export function selectHealthFacility(hf) {
   return (dispatch) => {
@@ -10,7 +10,7 @@ export function createPerformance(mm, performance, clientMutationLabel) {
 
   let mutation = formatMutation("createCriteria", formatPerformanceGQL(mm, performance), clientMutationLabel);
   var requestedDateTime = new Date();
-  return graphql(mutation.payload, ["PERFORMANCE_MUTATION_REQ", "PERFORMANCE_CREATE_PERFORMANCE_RESP", "PERFORMANCE_MUTATION_ERR"], {
+  return graphql(mutation.payload, ["IDPS_MUTATION_REQ", "IDPS_CREATE_PERFORMANCE_RESP", "IDPS_MUTATION_ERR"], {
     clientMutationId: mutation.clientMutationId,
     clientMutationLabel,
     requestedDateTime,
@@ -34,4 +34,41 @@ export function formatPerformanceGQL(mm, performance) {
     ${!!performance.wasteSeparation ? `wasteSeparation: ${performance.wasteSeparation==true ? 1: 0}` : ""}
     ${!!performance.sterilizationTools ? `sterilizationTools: ${performance.sterilizationTools}` : ""}
   `;
+}
+
+export function fetchPerformanceSummaries(mm, filters, withAttachmentsCount){
+  var projections = [
+    "id",
+    "period",
+    "medecineAvailability",
+    "qualifiedPersonnel",
+    "garbagecanAvailability",
+    "roomsCleaness",
+    "wasteSeparation",
+    "functionalsToilets",
+    "sterilizationTools",
+    "promptnessSubmission",
+    "hfScore",
+    "healthFacility",
+    "degreOfRejection",
+  ];
+
+  const payload = formatPageQuery("allCriteria",filters, projections);
+  return graphql(payload, "IDPS_PERFORMANCE_SEARCHER");
+}
+
+export function deletePerformance(mm, performance, clientMutationLabel) {
+  let mutation = formatMutation(
+    "deletePerformances",
+    `ids: ["${performance.id}"]`,
+    clientMutationLabel,
+  );
+  performance.clientMutationId = mutation.clientMutationId;
+  var requestedDateTime = new Date();
+  return graphql(mutation.payload, ["IDPS_MUTATION_REQ", "IDPS_DELETE_PERFORMANCES_RESP", "IDPS_MUTATION_ERR"], {
+    clientMutationId: mutation.clientMutationId,
+    clientMutationLabel,
+    requestedDateTime,
+    familyUuid: family_uuid,
+  });
 }

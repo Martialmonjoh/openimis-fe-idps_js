@@ -37,9 +37,16 @@
     "idps.CreatePerformance.mutationLabel": "Create performance - {label}",
     "idps.healthfacilities.performance": "Healthfacilities Performances",
     "idps.newPerformance.tooltip": "Add healthfacilitie Performances",
+    "idps.performanceSummaries.deletePerformance.tooltip": "Delete healthfacilitie Performances",
     "idps.performanceSummaries.month": "Month",
     "idps.performanceSummaries.year": "Year",
     "idps.performanceSummaries.healthfacility": "Healthfacility",
     "idps.performanceSummaries.scrore": "Score",
-    "idps.performanceSummaries": "Healthfacilities Performances"
+    "idps.performanceSummaries": "Healthfacilities Performances",
+    "idps.performanceSummaries.period": "Period",
+    "idps.performanceSummaries.healthFacility": "Healthfacility",
+    "idps.performanceSummaries.score": "Score",
+    "idps.performanceFilter.period": "Period",
+    "idps.performanceFilter.score": "Score",
+    "idps.performanceFilter.healthFacility": "Healthfacility"
 }

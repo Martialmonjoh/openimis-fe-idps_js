@@ -11,8 +11,6 @@ const styles = theme => ({
     page: theme.page,
 });
 
-
-
 class PerfomancePage extends Component {
 
     add = () => {
