@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { bindActionCreators } from "redux";
+import moment from "moment" 
 import { connect } from "react-redux";
 import { injectIntl } from "react-intl";
 import { Grid, IconButton, Tooltip } from "@material-ui/core";
@@ -11,6 +12,7 @@ import {
   Searcher,
   withHistory,
   PublishedComponent,
+  decodeId
 } from "@openimis/fe-core";
 import { fetchPerformanceSummaries } from "../actions";
 
@@ -43,15 +45,11 @@ class PerformanceSearcher extends Component {
     let prms = Object.keys(state.filters)
       .filter((f) => !!state.filters[f]["filter"])
       .map((f) => state.filters[f]["filter"]);
-    prms.push(`first: ${state.pageSize}`);
     if (!!state.afterCursor) {
       prms.push(`after: "${state.afterCursor}"`);
     }
     if (!!state.beforeCursor) {
       prms.push(`before: "${state.beforeCursor}"`);
-    }
-    if (!!state.orderBy) {
-      prms.push(`orderBy: ["${state.orderBy}"]`);
     }
     return prms;
   };
@@ -86,18 +84,15 @@ class PerformanceSearcher extends Component {
     this.setState({ open: false, chfid: null });
   };
 
+  formatDate = (date) => {
+    return moment(date).format('YYYY-MM')
+  }
+
   itemFormatters = (filters) => {
     var formatters = [
-      (performance) => (
-        <PublishedComponent
-          readOnly={true}
-          pubRef="location.HealthFacilityPicker"
-          withLabel={false}
-          value={performance.healthFacility}
-        />
-      ),
+      (performance) => performance.healthFacility,
       (performance) => performance.hfScore,
-      (performance) => performance.period,
+      (performance) => this.formatDate(performance.period),
       (performance) => performance.promptnessSubmission,
       (performance) => performance.degreOfRejection,
       (performance) => performance.medecineAvailability,

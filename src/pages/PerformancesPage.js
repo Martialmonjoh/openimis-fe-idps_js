@@ -26,7 +26,7 @@ const styles = (theme) => ({
 class PerformancesPage extends Component {
 
     onDoubleClick = (i, newTab = false) => {
-        historyPush(this.props.modulesManager, this.props.history, "idps.route.performance", [i.id], newTab);
+        historyPush(this.props.modulesManager, this.props.history, "idps.route.performance", [i], newTab);
     };
 
     add = () => {
@@ -34,11 +34,14 @@ class PerformancesPage extends Component {
     };
 
     render() {
-        const { intl, classes } = this.props;
+        const { intl, classes, healthFacilities } = this.props;
 
         return (
             <div className={classes.page}>
-                <PerformanceSearcher cacheFiltersKey="idpsPerformancePageFiltersCache" onDoubleClick={this.onDoubleClick} />
+                <PerformanceSearcher
+                    cacheFiltersKey="idpsPerformancePageFiltersCache"
+                    onDoubleClick={this.onDoubleClick}
+                />
                 {withTooltip(
                     <div className={classes.fab}>
                         <Fab color="primary" onClick={this.onAdd}>
@@ -53,4 +56,7 @@ class PerformancesPage extends Component {
 
 }
 
-export default injectIntl(withModulesManager((withTheme(withStyles(styles)(PerformancesPage)))));
+
+
+
+export default injectIntl((withModulesManager((withTheme(withStyles(styles)(PerformancesPage))))));

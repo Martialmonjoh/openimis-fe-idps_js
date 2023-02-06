@@ -1,4 +1,4 @@
-import React, { Component} from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import _debounce from "lodash/debounce";
@@ -73,7 +73,7 @@ class PerformanceFilter extends Component {
       return {
         id: "healthFacility",
         value: v,
-        filter: `healthFacility_id: "${v}"`,
+        filter: `hfid: "${v.id}"`,
       };
     } else {
       return { id: "healthFacility", value: null, filter: null };
@@ -96,6 +96,20 @@ class PerformanceFilter extends Component {
       <Grid container className={classes.form}>
         <ControlledField
           module="idps"
+          id="PerformanceFilter.healthFacility"
+          field={
+            <Grid item xs={3} className={classes.item}>
+              <PublishedComponent
+                pubRef="location.HealthFacilityPicker"
+                value={this._filterValue("healthFacility")}
+                reset={this.state.reset}
+                onChange={this._onChangeHealthFacility}
+              />
+            </Grid>
+          }
+        />
+        <ControlledField
+          module="idps"
           id="performanceFilter.period"
           field={
             <Grid item xs={2} className={classes.item}>
@@ -109,7 +123,7 @@ class PerformanceFilter extends Component {
                     {
                       id: "period",
                       value: v,
-                      filter: `period_Istartswith: "${v}"`,
+                      filter: `period: "${v}"`,
                     },
                   ])
                 }
@@ -131,24 +145,10 @@ class PerformanceFilter extends Component {
                     {
                       id: "period",
                       value: v,
-                      filter: `period_Istartswith: "${v}"`,
+                      filter: `period: "${v}"`,
                     },
                   ])
                 }
-              />
-            </Grid>
-          }
-        />
-        <ControlledField
-          module="idps"
-          id="PerformanceFilter.healthFacility"
-          field={
-            <Grid item xs={3} className={classes.item}>
-              <PublishedComponent
-                pubRef="location.HealthFacilityPicker"
-                value={this._filterValue("healthFacility")}
-                reset={this.state.reset}
-                onChange={this._onChangeHealthFacility}
               />
             </Grid>
           }
@@ -168,7 +168,7 @@ class PerformanceFilter extends Component {
                     {
                       id: "score",
                       value: v,
-                      filter: `score_Istartswith: "${v}"`,
+                      filter: `score: "${v}"`,
                     },
                   ])
                 }
