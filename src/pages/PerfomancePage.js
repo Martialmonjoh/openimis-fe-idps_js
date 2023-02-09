@@ -28,9 +28,10 @@ class PerfomancePage extends Component {
     };
 
     render() {
-        const { classes, modulesManager, history } = this.props;
+        const { classes, modulesManager, history, performance_id } = this.props;
         return (
             <PerfomanceForm
+                performance_id={performance_id}
                 save={this.save}
                 add={this.add}
                 back={(e) => historyPush(modulesManager, history, "idps.route.performances")}
@@ -41,7 +42,7 @@ class PerfomancePage extends Component {
 }
 
 const mapStateToProps = (state, props) => ({
-
+    performance_id: props.match.params.performance_id,
 });
 
 const mapDispatchToProps = (dispatch) => {

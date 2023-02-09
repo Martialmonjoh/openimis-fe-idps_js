@@ -96,6 +96,26 @@ export function deletePerformance(mm, performance, clientMutationLabel) {
   });
 }
 
+export function fetchPerformance(mm, performanceId) {
+  let projections = [
+    "id",
+    "period",
+    "medecineAvailability",
+    "qualifiedPersonnel",
+    "garbagecanAvailability",
+    "roomsCleaness",
+    "wasteSeparation",
+    "functionalsToilets",
+    "sterilizationTools",
+    "promptnessSubmission",
+    "hfScore",
+    "healthFacility",
+    "degreOfRejection",
+  ];
+  const payload = formatQuery("allCriteria", [`id: "${performanceId}"`], projections);
+  return graphql(payload, "IDPS_PERFORMANCE");
+}
+
 export function fetchPerformancesFromHfId(mm, filters) {
   let payload = formatQuery("healthFacilityFilter", filters, PERFORMANCE_FULL_PROJECTION(mm));
   return graphql(payload, "IDPS_PERFORMANCES");

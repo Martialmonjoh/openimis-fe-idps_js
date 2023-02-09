@@ -10,7 +10,10 @@ import {
 
 function reducer(
     state = {
-        performance: {},
+        fetchingPerformance: false,
+        fetchedPerformance: false,
+        errorPerformance: null,
+        performance: null,
         mutation: {},
         errorClaim: null,
         fetchingPerformances: false,
@@ -54,6 +57,28 @@ function reducer(
                 ...state,
                 fetchingPerformances: false,
                 errorPerformances: formatServerError(action.payload),
+            };
+            case "IDPS_PERFORMANCE_REQ":
+            return {
+                ...state,
+                fetchingPerformance: true,
+                fetchedPerformance: false,
+                performance: null,
+                errorPerformance: null,
+            };
+        case "IDPS_PERFORMANCE_RESP":
+            return {
+                ...state,
+                fetchingPerformance: false,
+                fetchedPerformance: true,
+                performance: parseData(action.payload.data.allCriteria)[0],
+                errorPerformance: formatGraphQLError(action.payload),
+            };
+        case "IDPS_PERFORMANCE_ERR":
+            return {
+                ...state,
+                fetchingPerformance: false,
+                errorPerformance: formatServerError(action.payload),
             };
         case "IDPS_MUTATION_REQ":
             return dispatchMutationReq(state, action);
