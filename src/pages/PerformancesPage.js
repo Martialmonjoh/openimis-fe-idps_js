@@ -44,7 +44,7 @@ class PerformancesPage extends Component {
                 />
                 {withTooltip(
                     <div className={classes.fab}>
-                        <Fab color="primary" onClick={this.onAdd}>
+                        <Fab color="primary" onClick={this.add}>
                             <AddIcon />
                         </Fab>
                     </div>,

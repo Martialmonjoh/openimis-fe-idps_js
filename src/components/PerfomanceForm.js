@@ -1,12 +1,14 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import { withTheme, withStyles } from "@material-ui/core/styles";
 import {
   withModulesManager,
   withHistory,
   historyPush,
   Form,
+  ProgressOrError
 } from "@openimis/fe-core";
 import PerfomanceMasterPanel from "../components/PerfomanceMasterPanel";
 import { fetchPerformance } from "../actions";
