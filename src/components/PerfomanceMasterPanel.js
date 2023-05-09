@@ -36,7 +36,7 @@ class PerfomanceMasterPanel extends FormPanel {
       intl,
       classes,
       edited,
-      title = "add.perfomance",
+      title = "add.performance",
       titleParams = { label: "" },
       readOnly = false,
       actions,
