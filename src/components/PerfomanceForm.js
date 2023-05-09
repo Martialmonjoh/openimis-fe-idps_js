@@ -35,7 +35,6 @@ class PerfomanceForm extends Component {
     if (!this.state.performance.qualifiedPersonnel) return false;
     if (!this.state.performance.garbageAvailability) return false;
     if (!this.state.performance.cleanliness) return false;
-    if (!this.state.performance.wasteSeparation) return false;
     if (!this.state.performance.functionalToilets) return false;
     if (!this.state.performance.sterilizationTools) return false;
     return true;
