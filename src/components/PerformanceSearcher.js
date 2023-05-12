@@ -146,7 +146,7 @@ class PerformanceSearcher extends Component {
           sorts={this.sorts}
           rowDisabled={this.rowDisabled}
           rowLocked={this.rowLocked}
-          onDoubleClick={(i) => !i.clientMutationId && onDoubleClick(i)}
+          onDoubleClick={onDoubleClick}
           reset={this.state.reset}
         />
       </Fragment>

@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { injectIntl } from "react-intl";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import ReplayIcon from "@material-ui/icons/Replay";
 import { withTheme, withStyles } from "@material-ui/core/styles";
 import {
   withModulesManager,
