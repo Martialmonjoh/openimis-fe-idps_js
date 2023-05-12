@@ -34,23 +34,16 @@ class PerformanceYearPicker extends Component {
       name,
       module,
       label,
-      nullLabel = "year.null",
+      nullLabel = "performance.year.null",
       withNull = true,
     } = this.props;
     const { value } = this.state;
     if (!withNull && value === null) return null;
 
-    const options = withNull
-      ? [
-        {
-          value: null,
-          label: formatMessage(intl, module, nullLabel),
-        },
-      ]
-      : [];
+    const options = [];
 
     options.push(
-      ..._.range(2000, new Date().getFullYear() + 1).map((v) => ({
+      ..._.range(2023, new Date().getFullYear() + 10).map((v) => ({
         value: v,
         label: v,
       }))
@@ -63,7 +56,8 @@ class PerformanceYearPicker extends Component {
         options={options}
         name={name}
         value={value}
-        onChange={this._onChange} />
+        onChange={this._onChange}
+        />
     );
   }
 }

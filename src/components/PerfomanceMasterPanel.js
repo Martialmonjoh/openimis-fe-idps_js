@@ -59,8 +59,6 @@ class PerfomanceMasterPanel extends FormPanel {
                 module="idps"
                 label="performance.month"
                 required={true}
-                withNull={true}
-                nullLabel={formatMessage(intl, "idps", "performance.month.none")}
                 onChange={(v) => this.updateAttribute("month", v)}
               />
             </Grid>

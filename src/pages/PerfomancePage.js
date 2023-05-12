@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withTheme, withStyles } from "@material-ui/core/styles";
 import PerfomanceForm from "../components/PerfomanceForm";
-import { formatMessageWithValues, withModulesManager, withHistory, historyPush } from "@openimis/fe-core";
+import { formatMessage, withModulesManager, withHistory, historyPush } from "@openimis/fe-core";
 import { createPerformance } from "../actions";
 
 const styles = theme => ({
@@ -18,13 +18,15 @@ class PerfomancePage extends Component {
     };
 
     save = (performance) => {
-        this.props.createPerformance(
-            this.props.modulesManager,
-            performance,
-            formatMessageWithValues(this.props.intl, "idps", "CreateCriteria.mutationLabel", {
-                label: !!performance.id ? performance.id : "",
-            }),
-        );
+        if (!performance.id) {
+            this.props.createPerformance(
+                this.props.modulesManager,
+                performance,
+                formatMessage(this.props.intl, "idps", "createPerformance.mutationLabel")
+            );
+        } else {
+            //dispatch(updateUser(this.props.modulesManager, performance, formatMessageWithValues("idps.createPerformance.mutationLabel")));
+        }
     };
 
     render() {

@@ -8,6 +8,7 @@ import {
   withHistory,
   historyPush,
   Form,
+  journalize,
   ProgressOrError
 } from "@openimis/fe-core";
 import PerfomanceMasterPanel from "../components/PerfomanceMasterPanel";
@@ -23,7 +24,7 @@ class PerfomanceForm extends Component {
     reset: 0,
     performance_id: null,
     performance: this._newPerformance(),
-    newPerfomance: true,
+    newPerformance: true,
   };
 
   canSave = () => {
@@ -65,8 +66,8 @@ class PerfomanceForm extends Component {
   _add = () => {
     this.setState(
       (state) => ({
-        insuree: this._newInsuree(),
-        newInsuree: true,
+        performance: this._newPerformance(),
+        newPerformance: true,
         lockNew: false,
         reset: state.reset + 1,
       }),
@@ -83,6 +84,19 @@ class PerfomanceForm extends Component {
         (state, props) => ({ performance_id: props.performance_id }),
         (e) => this.props.fetchPerformance(this.props.modulesManager, this.props.performance_id),
       );
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.fetchedPerformance !== this.props.fetchedPerformance && !!this.props.fetchedPerformance) {
+      var performance = this.props.performance || {};
+      performance.ext = !!performance.jsonExt ? JSON.parse(performance.jsonExt) : {};
+      this.setState({ performance, performance_id: performance.id, lockNew: false, newPerformance: false });
+    } else if (prevProps.performance_id && !this.props.performance_id) {
+      this.setState({ performance: this._newPerformance(), newPerformance: true, lockNew: false, performance_id: null });
+    } else if (prevProps.submittingMutation && !this.props.submittingMutation) {
+      this.props.journalize(this.props.mutation);
+      this.setState({ reset: this.state.reset + 1 });
     }
   }
 
@@ -143,12 +157,14 @@ class PerfomanceForm extends Component {
 const mapStateToProps = (state, props) => ({
   performance: state.idps.performance,
   fetchingPerformance: state.idps.fetchingPerformance,
-  fetchedPerformance: state.claim.fetchedPerformance,
-  errorPerformance: state.claim.errorPerformance,
+  fetchedPerformance: state.idps.fetchedPerformance,
+  errorPerformance: state.idps.errorPerformance,
+  submittingMutation: state.idps.submittingMutation,
+  mutation: state.idps.mutation,
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchPerformance }, dispatch);
+  return bindActionCreators({ fetchPerformance, journalize }, dispatch);
 };
 
 export default withHistory(
