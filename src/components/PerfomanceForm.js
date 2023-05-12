@@ -115,6 +115,7 @@ class PerfomanceForm extends Component {
       errorPerformance,
       save,
       add,
+      back,
       performance_id
     } = this.props;
     const { performance } = this.state;
@@ -136,6 +137,7 @@ class PerfomanceForm extends Component {
         {((!!fetchedPerformance && !!performance && performance.id === performance_id) || !performance_id) && (
           <Form
             module="idps"
+            title="edit.title"
             reset={this.state.reset}
             edited_id={performance_id}
             edited={this.state.performance}
@@ -143,6 +145,7 @@ class PerfomanceForm extends Component {
             performance={this.state.performance}
             onEditedChanged={this.onEditedChanged}
             canSave={this.canSave}
+            back={back}
             actions={actions}
             reload={(performance_id || readOnly) && this.reload}
             save={!!save ? this._save : null}

@@ -12,6 +12,7 @@
     "idps.perfomance.promptness": "Promptness in submitting monthly invoices",
     "idps.performance.rejectionDegree": "Degree of rejection of Claims by openIMIS",
     "idps.performance.permanentAvailability": "Permanent availability of medecines and medical consumables",
+    "idps.performance.medecineAvailability": "Medecine availability",
     "idps.performance.qualifiedPersonnel": "Services is provided by the qualified personnel",
     "idps.performance.garbageAvailability": "Availability of garbage cans in the yard",
     "idps.performance.cleanliness": "Cleanliness of rooms, toilets and walls",
@@ -57,5 +58,6 @@
     "idps.performanceFilter.period": "Period",
     "idps.performanceFilter.month": "Month",
     "idps.performanceFilter.year": "Year",
-    "idps.performanceFilter.score": "Min. Score"
+    "idps.performanceFilter.score": "Min. Score",
+    "idps.edit.title": "Performance Criteria"
 }

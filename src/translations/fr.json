@@ -56,5 +56,7 @@
     "idps.performanceFilter.period": "Période",
     "idps.performanceFilter.month": "Mois",
     "idps.performanceFilter.year": "Année",
-    "idps.performanceFilter.score": "Score min."
+    "idps.performanceFilter.score": "Score min.",
+    "idps.edit.title": "Critère de Performance",
+    "idps.performance.medecineAvailability": "Disponibilité des médécins"
 }
