@@ -54,7 +54,7 @@ export function formatPerformanceGQL(mm, performance) {
     ${!!performance.cleanliness ? `roomsCleaness: ${performance.cleanliness}` : ""}
     ${!!performance.medecineAvailability ? `medecineAvailability: ${performance.medecineAvailability}` : ""}
     ${!!performance.functionalToilets ? `functionalsToilets: ${performance.functionalToilets}` : ""}
-    ${!!performance.wasteSeparation ? `wasteSeparation: ${performance.wasteSeparation == true ? 1 : 0}` : ""}
+    ${!!performance.wasteSeparation ? `wasteSeparation: ${performance.wasteSeparation == true ? 1 : 0}` : `wasteSeparation: 0`}
     ${!!performance.sterilizationTools ? `sterilizationTools: ${performance.sterilizationTools}` : ""}
   `;
 }
