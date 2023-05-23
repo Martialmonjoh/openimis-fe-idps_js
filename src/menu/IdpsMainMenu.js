@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {injectIntl} from 'react-intl';
-import { ScreenShare , FormatAlignLeft} from "@material-ui/icons";
+import { ScreenShare , FormatAlignLeft , Ballot} from "@material-ui/icons";
 import {formatMessage, MainMenuContribution , withModulesManager } from "@openimis/fe-core";
 
 class IdpsMainMenu extends Component {
@@ -11,6 +11,11 @@ class IdpsMainMenu extends Component {
             text: formatMessage(intl, "idps", "menu.perfomance"),
             icon: <FormatAlignLeft/>,
             route: "/idps/performances"
+        });
+        entries.push({
+            text: formatMessage(intl, "idps", "menu.reports"),
+            icon: <Ballot/>,
+            route: "/idps/reports"
         });
 
         if(!entries.length) return null;
