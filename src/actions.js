@@ -54,7 +54,7 @@ export function formatPerformanceGQL(mm, performance) {
     ${!!performance.cleanliness ? `roomsCleaness: ${performance.cleanliness}` : ""}
     ${!!performance.medecineAvailability ? `medecineAvailability: ${performance.medecineAvailability}` : ""}
     ${!!performance.functionalToilets ? `functionalsToilets: ${performance.functionalToilets}` : ""}
-    ${!!performance.wasteSeparation ? `wasteSeparation: ${performance.wasteSeparation == true ? 1 : 0}` : ""}
+    ${!!performance.wasteSeparation ? `wasteSeparation: ${performance.wasteSeparation == true ? 1 : 0}` : `wasteSeparation: 0`}
     ${!!performance.sterilizationTools ? `sterilizationTools: ${performance.sterilizationTools}` : ""}
   `;
 }
@@ -76,7 +76,7 @@ export function fetchPerformanceSummaries(mm, filters) {
     "degreOfRejection",
   ];
 
-  const payload = formatQuery("allCriteria", filters, projections);
+  const payload = formatPageQueryWithCount("allCriteria", filters, projections);
   return graphql(payload, "IDPS_PERFORMANCES");
 }
 
@@ -97,22 +97,25 @@ export function deletePerformance(mm, performance, clientMutationLabel) {
 }
 
 export function fetchPerformance(mm, performanceId) {
-  let projections = [
-    "id",
-    "period",
-    "medecineAvailability",
-    "qualifiedPersonnel",
-    "garbagecanAvailability",
-    "roomsCleaness",
-    "wasteSeparation",
-    "functionalsToilets",
-    "sterilizationTools",
-    "promptnessSubmission",
-    "hfScore",
-    "healthFacility",
-    "degreOfRejection",
-  ];
-  const payload = formatQuery("allCriteria", [`id: "${performanceId}"`], projections);
+  let payload = formatPageQuery(
+    "allCriteria",
+    [`id:${decodeId(performanceId)}`],
+    [
+      "id",
+      "period",
+      "medecineAvailability",
+      "qualifiedPersonnel",
+      "garbagecanAvailability",
+      "roomsCleaness",
+      "wasteSeparation",
+      "functionalsToilets",
+      "sterilizationTools",
+      "promptnessSubmission",
+      "hfScore",
+      "healthFacility",
+      "degreOfRejection",
+    ],
+  );
   return graphql(payload, "IDPS_PERFORMANCE");
 }
 

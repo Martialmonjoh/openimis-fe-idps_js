@@ -78,7 +78,7 @@ class PerfomanceMasterPanel extends FormPanel {
           </Grid>
         </Grid>
         <Grid container className={classes.item}>
-          <Grid item xs={3} className={classes.item}>
+          <Grid item xs={4} className={classes.item}>
             <Grid className={classes.item}>
               {formatMessage(intl, "idps", "performance.qualifiedPersonnel")}
             </Grid>
@@ -93,7 +93,7 @@ class PerfomanceMasterPanel extends FormPanel {
               />
             </Grid>
           </Grid>
-          <Grid item xs={3} className={classes.item}>
+          <Grid item xs={4} className={classes.item}>
             <Grid className={classes.item}>
               {formatMessage(intl, "idps", "performance.garbageAvailability")}
             </Grid>
@@ -108,7 +108,7 @@ class PerfomanceMasterPanel extends FormPanel {
               />
             </Grid>
           </Grid>
-          <Grid item xs={3} className={classes.item}>
+          <Grid item xs={4} className={classes.item}>
             <Grid className={classes.item}>
               {formatMessage(intl, "idps", "performance.cleanliness")}
             </Grid>
@@ -123,7 +123,9 @@ class PerfomanceMasterPanel extends FormPanel {
               />
             </Grid>
           </Grid>
-          <Grid item xs={2} className={classes.item}>
+        </Grid>
+        <Grid container className={classes.item}>
+        <Grid item xs={3} className={classes.item}>
             <Grid className={classes.item}>
               {formatMessage(intl, "idps", "performance.medecineAvailability")}
             </Grid>
@@ -138,24 +140,7 @@ class PerfomanceMasterPanel extends FormPanel {
               />
             </Grid>
           </Grid>
-        </Grid>
-        <Grid container className={classes.item}>
-          <Grid item xs={3} className={classes.item}>
-            <Grid className={classes.item}>
-              {formatMessage(intl, "idps", "performance.functionalToilets")}
-            </Grid>
-            <Grid className={classes.item}>
-              <NumberInput
-                module="idps"
-                label=""
-                required={true}
-                readOnly={readOnly}
-                value={!!edited && !!edited.functionalToilets ? edited.functionalToilets : ""}
-                onChange={(v) => this.updateAttribute("functionalToilets", v)}
-              />
-            </Grid>
-          </Grid>
-          <Grid item xs={3} className={classes.item}>
+          <Grid item xs={4} className={classes.item}>
             <Grid className={classes.item}>
               {formatMessage(intl, "idps", "performance.sterilizationTools")}
             </Grid>
@@ -167,6 +152,21 @@ class PerfomanceMasterPanel extends FormPanel {
                 readOnly={readOnly}
                 value={!!edited && !!edited.sterilizationTools ? edited.sterilizationTools : ""}
                 onChange={(v) => this.updateAttribute("sterilizationTools", v)}
+              />
+            </Grid>
+          </Grid>
+          <Grid item xs={5} className={classes.item}>
+            <Grid className={classes.item}>
+              {formatMessage(intl, "idps", "performance.functionalToilets")}
+            </Grid>
+            <Grid className={classes.item}>
+              <NumberInput
+                module="idps"
+                label=""
+                required={true}
+                readOnly={readOnly}
+                value={!!edited && !!edited.functionalToilets ? edited.functionalToilets : ""}
+                onChange={(v) => this.updateAttribute("functionalToilets", v)}
               />
             </Grid>
           </Grid>

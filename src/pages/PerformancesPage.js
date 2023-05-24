@@ -27,7 +27,7 @@ const styles = (theme) => ({
 class PerformancesPage extends Component {
 
     onDoubleClick = (i, newTab = false) => {
-        historyPush(this.props.modulesManager, this.props.history, "idps.route.performance", [decodeId(i.id)], newTab);
+        historyPush(this.props.modulesManager, this.props.history, "idps.route.performance", [i.id], newTab);
     };
 
     add = () => {
