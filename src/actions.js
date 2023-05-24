@@ -50,8 +50,8 @@ export function formatPerformanceGQL(mm, performance) {
     ${!!performance.month && !!performance.year ? `period: "${performance.year}-${monthNumber}"` : ""}
     ${!!performance.healthFacility && !!performance.healthFacility.id ? `healthFacility: ${decodeId(performance.healthFacility.id)}` : ""}
     ${!!performance.qualifiedPersonnel ? `qualifiedPersonnel: ${performance.qualifiedPersonnel}` : ""}
-    ${!!performance.garbageAvailability ? `garbagecanAvailability: ${performance.garbageAvailability}` : ""}
-    ${!!performance.cleanliness ? `roomsCleaness: ${performance.cleanliness}` : ""}
+    ${!!performance.garbagecanAvailability ? `garbagecanAvailability: ${performance.garbagecanAvailability}` : ""}
+    ${!!performance.roomsCleaness ? `roomsCleaness: ${performance.roomsCleaness}` : ""}
     ${!!performance.medecineAvailability ? `medecineAvailability: ${performance.medecineAvailability}` : ""}
     ${!!performance.functionalToilets ? `functionalsToilets: ${performance.functionalToilets}` : ""}
     ${!!performance.wasteSeparation ? `wasteSeparation: ${performance.wasteSeparation == true ? 1 : 0}` : `wasteSeparation: 0`}
