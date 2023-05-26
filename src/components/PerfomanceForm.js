@@ -164,5 +164,5 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default withHistory(
-  withModulesManager(connect(mapStateToProps, { fetchPerformance, fetchHealthFacilities, journalize })(injectIntl(withTheme(withStyles(styles)(PerfomanceForm)))))
+  withModulesManager(connect(mapStateToProps, { fetchPerformance, journalize })(injectIntl(withTheme(withStyles(styles)(PerfomanceForm)))))
 );
