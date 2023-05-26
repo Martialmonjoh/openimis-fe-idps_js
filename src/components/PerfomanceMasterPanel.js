@@ -27,7 +27,6 @@ class PerfomanceMasterPanel extends FormPanel {
   updateAttribute = (attr, v) => {
     let edited = { ...this.props.edited };
     edited[attr] = v;
-    console.log(edited)
     this.props.onEditedChanged(edited);
   };
 
@@ -40,8 +39,6 @@ class PerfomanceMasterPanel extends FormPanel {
       titleParams = { label: "" },
       actions,
     } = this.props;
-
-    console.log(edited);
 
     let readOnly = !!edited.id ? true : false;
 
