@@ -41,9 +41,20 @@ class PerfomanceMasterPanel extends FormPanel {
       actions,
     } = this.props;
 
+    console.log(edited);
+
     let readOnly = !!edited.id ? true : false;
 
-    console.log(edited);
+    if (!!edited && !!edited.id) {
+      const date = new Date(edited.period);
+      let year = date.getFullYear();
+
+      const moment = require('moment');
+      let monthNumber = date.getMonth();
+
+      edited.year = year;
+      edited.month = moment.months()[monthNumber];
+    }
 
     return (
       <Grid container>
@@ -53,6 +64,7 @@ class PerfomanceMasterPanel extends FormPanel {
               value={!!edited ? edited.month : null}
               module="idps"
               label="performance.month"
+              readOnly={readOnly}
               required={true}
               onChange={(v) => this.updateAttribute("month", v)}
             />
@@ -61,6 +73,7 @@ class PerfomanceMasterPanel extends FormPanel {
             <PerformanceYearPicker
               value={!!edited ? edited.year : null}
               module="idps"
+              readOnly={readOnly}
               label="performance.year"
               required={true}
               onChange={(v) => this.updateAttribute("year", v)}
@@ -128,7 +141,7 @@ class PerfomanceMasterPanel extends FormPanel {
           </Grid>
         </Grid>
         <Grid container className={classes.item}>
-          <Grid item xs={3} className={classes.item}>
+          <Grid item xs={4} className={classes.item}>
             <Grid className={classes.item}>
               {formatMessage(intl, "idps", "performance.medecineAvailability")}
             </Grid>
@@ -158,6 +171,21 @@ class PerfomanceMasterPanel extends FormPanel {
               />
             </Grid>
           </Grid>
+          {!!edited && edited.promptnessSubmission !== null && (
+            <Grid item xs={4} className={classes.item}>
+              <Grid className={classes.item}>
+                {formatMessage(intl, "idps", "performance.promptness")}
+              </Grid>
+              <Grid className={classes.item}>
+                <NumberInput
+                  module="idps"
+                  label=""
+                  readOnly={true}
+                  value={!!edited && edited.promptnessSubmission !== null ? `${edited.promptnessSubmission}` : ""}
+                />
+              </Grid>
+            </Grid>
+          )}
         </Grid>
         <Grid container className={classes.item}>
           <Grid item xs={5} className={classes.item}>
@@ -175,24 +203,38 @@ class PerfomanceMasterPanel extends FormPanel {
               />
             </Grid>
           </Grid>
-        </Grid>
-        <Grid item xs={5} className={classes.item}>
-          <Grid className={classes.item}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color="primary"
-                  checked={!!edited && !!edited.wasteSeparation}
-                  disabled={readOnly}
-                  onChange={(v) => this.updateAttribute("wasteSeparation", !edited || !edited.wasteSeparation)}
-                />
-              }
-              label={formatMessage(intl, "idps", "performance.wasteSeparation")}
-            />
+          <Grid item xs={5} className={classes.item}>
+            <Grid className={classes.item}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    color="primary"
+                    checked={!!edited && !!edited.wasteSeparation}
+                    disabled={readOnly}
+                    onChange={(v) => this.updateAttribute("wasteSeparation", !edited || !edited.wasteSeparation)}
+                  />
+                }
+                label={formatMessage(intl, "idps", "performance.wasteSeparation")}
+              />
+            </Grid>
           </Grid>
         </Grid>
-        <Grid container className={classes.item}>
-          {!!edited && !!edited.hfScore && (
+        {!!edited && edited.degreOfRejection !== null && (
+          <Grid item xs={4} className={classes.item}>
+            <Grid className={classes.item}>
+              {formatMessage(intl, "idps", "performance.rejectionDegree")}
+            </Grid>
+            <Grid className={classes.item}>
+              <NumberInput
+                module="idps"
+                label=""
+                readOnly={true}
+                value={!!edited && edited.degreOfRejection !== null ? `${edited.degreOfRejection}` : ""}
+              />
+            </Grid>
+          </Grid>
+        )}
+        {!!edited && !!edited.hfScore && (
             <Grid item xs={2} className={classes.item}>
               <Grid className={classes.item}>
                 {formatMessage(intl, "idps", "performance.totalScore")}
@@ -207,7 +249,6 @@ class PerfomanceMasterPanel extends FormPanel {
               </Grid>
             </Grid>
           )}
-        </Grid>
       </Grid>
     );
   }

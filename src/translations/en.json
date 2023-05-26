@@ -9,7 +9,7 @@
     "idps.performance.year": "Select Year",
     "idps.performance.healthFacility": "Select a healthFacility",
     "idps.perfomance.healthFacility.none": "None healthFacility",
-    "idps.perfomance.promptness": "Promptness in submitting monthly invoices",
+    "idps.performance.promptness": "Promptness in submitting monthly invoices",
     "idps.performance.rejectionDegree": "Degree of rejection of Claims by openIMIS",
     "idps.performance.permanentAvailability": "Permanent availability of medecines and medical consumables",
     "idps.performance.medecineAvailability": "Medecine availability",

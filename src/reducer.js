@@ -60,7 +60,7 @@ function reducer(
                 fetchingPerformances: false,
                 errorPerformances: formatServerError(action.payload),
             };
-            case "IDPS_PERFORMANCE_REQ":
+        case "IDPS_PERFORMANCE_REQ":
             return {
                 ...state,
                 fetchingPerformance: true,

@@ -35,6 +35,7 @@ class PerformanceYearPicker extends Component {
       module,
       label,
       nullLabel = "performance.year.null",
+      readOnly,
       withNull = true,
     } = this.props;
     const { value } = this.state;
@@ -54,6 +55,7 @@ class PerformanceYearPicker extends Component {
         module={module}
         label={label}
         options={options}
+        readOnly={readOnly}
         name={name}
         value={value}
         onChange={this._onChange}

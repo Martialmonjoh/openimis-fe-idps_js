@@ -11,7 +11,6 @@ import {
   Form,
   journalize,
   ProgressOrError,
-  decodeId
 } from "@openimis/fe-core";
 import PerfomanceMasterPanel from "../components/PerfomanceMasterPanel";
 import { fetchPerformance } from "../actions";
@@ -84,7 +83,6 @@ class PerfomanceForm extends Component {
   };
 
   canSave = () => {
-    console.log(this.state.performance)
     if (!this.state.performance.month) return false;
     if (!this.state.performance.year) return false;
     if (!this.state.performance.healthFacility) return false;
@@ -99,7 +97,7 @@ class PerfomanceForm extends Component {
 
   _save = (performance) => {
     this.setState(
-      { lockNew: !performance.id }, 
+      { lockNew: !performance.id },
       (e) => this.props.save(performance),
     );
   };
@@ -117,7 +115,7 @@ class PerfomanceForm extends Component {
       readOnly = false,
       save,
       add,
-      performance_id
+      performance_id,
     } = this.props;
     const { performance } = this.state;
     var actions = [];
@@ -166,5 +164,5 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default withHistory(
-  withModulesManager(connect(mapStateToProps, { fetchPerformance, journalize })(injectIntl(withTheme(withStyles(styles)(PerfomanceForm)))))
+  withModulesManager(connect(mapStateToProps, { fetchPerformance, fetchHealthFacilities, journalize })(injectIntl(withTheme(withStyles(styles)(PerfomanceForm)))))
 );
