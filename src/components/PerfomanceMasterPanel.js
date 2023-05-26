@@ -171,7 +171,7 @@ class PerfomanceMasterPanel extends FormPanel {
               />
             </Grid>
           </Grid>
-          {!!edited && edited.promptnessSubmission !== null && (
+          {!!edited && edited.promptnessSubmission !== undefined && edited.promptnessSubmission !== null && (
             <Grid item xs={4} className={classes.item}>
               <Grid className={classes.item}>
                 {formatMessage(intl, "idps", "performance.promptness")}
@@ -219,7 +219,7 @@ class PerfomanceMasterPanel extends FormPanel {
             </Grid>
           </Grid>
         </Grid>
-        {!!edited && edited.degreOfRejection !== null && (
+        {!!edited && edited.degreOfRejection !== undefined && edited.degreOfRejection !== null && (
           <Grid item xs={4} className={classes.item}>
             <Grid className={classes.item}>
               {formatMessage(intl, "idps", "performance.rejectionDegree")}
