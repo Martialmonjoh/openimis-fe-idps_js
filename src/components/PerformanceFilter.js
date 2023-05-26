@@ -168,7 +168,7 @@ class PerformanceFilter extends Component {
                     {
                       id: "score",
                       value: v,
-                      filter: `score: "${v}"`,
+                      filter: `hfScore: "${v}"`,
                     },
                   ])
                 }
