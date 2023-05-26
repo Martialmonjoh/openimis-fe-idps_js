@@ -90,7 +90,7 @@ class PerfomanceForm extends Component {
     if (!this.state.performance.qualifiedPersonnel) return false;
     if (!this.state.performance.garbagecanAvailability) return false;
     if (!this.state.performance.roomsCleaness) return false;
-    if (!this.state.performance.functionalToilets) return false;
+    if (!this.state.performance.functionalsToilets) return false;
     if (!this.state.performance.sterilizationTools) return false;
     return true;
   };
