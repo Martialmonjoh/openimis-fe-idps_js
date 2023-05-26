@@ -19,7 +19,7 @@ const PERFORMANCE_FULL_PROJECTION = (mm) => [
   "sterilizationTools",
   "promptnessSubmission",
   "hfScore",
-  "healthFacility",
+  "healthFacility{id code name}",
   "degreOfRejection",
 ];
 
@@ -50,8 +50,8 @@ export function formatPerformanceGQL(mm, performance) {
     ${!!performance.month && !!performance.year ? `period: "${performance.year}-${monthNumber}"` : ""}
     ${!!performance.healthFacility && !!performance.healthFacility.id ? `healthFacility: ${decodeId(performance.healthFacility.id)}` : ""}
     ${!!performance.qualifiedPersonnel ? `qualifiedPersonnel: ${performance.qualifiedPersonnel}` : ""}
-    ${!!performance.garbageAvailability ? `garbagecanAvailability: ${performance.garbageAvailability}` : ""}
-    ${!!performance.cleanliness ? `roomsCleaness: ${performance.cleanliness}` : ""}
+    ${!!performance.garbagecanAvailability ? `garbagecanAvailability: ${performance.garbagecanAvailability}` : ""}
+    ${!!performance.roomsCleaness ? `roomsCleaness: ${performance.roomsCleaness}` : ""}
     ${!!performance.medecineAvailability ? `medecineAvailability: ${performance.medecineAvailability}` : ""}
     ${!!performance.functionalToilets ? `functionalsToilets: ${performance.functionalToilets}` : ""}
     ${!!performance.wasteSeparation ? `wasteSeparation: ${performance.wasteSeparation == true ? 1 : 0}` : `wasteSeparation: 0`}
@@ -72,11 +72,11 @@ export function fetchPerformanceSummaries(mm, filters) {
     "sterilizationTools",
     "promptnessSubmission",
     "hfScore",
-    "healthFacility",
+    "healthFacility{id code name}",
     "degreOfRejection",
   ];
 
-  const payload = formatQuery("allCriteria", filters, projections);
+  const payload = formatPageQueryWithCount("allCriteria", filters, projections);
   return graphql(payload, "IDPS_PERFORMANCES");
 }
 
@@ -97,22 +97,25 @@ export function deletePerformance(mm, performance, clientMutationLabel) {
 }
 
 export function fetchPerformance(mm, performanceId) {
-  let projections = [
-    "id",
-    "period",
-    "medecineAvailability",
-    "qualifiedPersonnel",
-    "garbagecanAvailability",
-    "roomsCleaness",
-    "wasteSeparation",
-    "functionalsToilets",
-    "sterilizationTools",
-    "promptnessSubmission",
-    "hfScore",
-    "healthFacility",
-    "degreOfRejection",
-  ];
-  const payload = formatQuery("allCriteria", [`id: "${performanceId}"`], projections);
+  let payload = formatPageQuery(
+    "allCriteria",
+    [`id:${decodeId(performanceId)}`],
+    [
+      "id",
+      "period",
+      "medecineAvailability",
+      "qualifiedPersonnel",
+      "garbagecanAvailability",
+      "roomsCleaness",
+      "wasteSeparation",
+      "functionalsToilets",
+      "sterilizationTools",
+      "promptnessSubmission",
+      "hfScore",
+      "healthFacility{id code name}",
+      "degreOfRejection",
+    ],
+  );
   return graphql(payload, "IDPS_PERFORMANCE");
 }
 

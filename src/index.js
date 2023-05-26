@@ -21,7 +21,7 @@ const DEFAULT_CONFIG = {
     { key: "idps.route.performances", ref: ROUTE_IDPS_PERFORMANCES }
   ],
   "core.Router": [
-    { path: "idps/performance", component: PerfomancePage },
+    { path: ROUTE_IDPS_PERFORMANCE + "/:performance_id?", component: PerfomancePage },
     { path: "idps/performances", component: PerformancesPage }
   ],
   "core.MainMenu": [IdpsMainMenu],

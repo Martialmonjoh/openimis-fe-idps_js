@@ -20,6 +20,7 @@ function reducer(
         fetchedPerformances: false,
         errorPerformances: null,
         performances: [],
+        performancesPageInfo: { totalCount: 0 },
         submittingMutation: false,
         mutation: {},
     },
@@ -49,7 +50,8 @@ function reducer(
                 ...state,
                 fetchingPerformances: false,
                 fetchedPerformances: true,
-                performances: action.payload.data.allCriteria,
+                performances: parseData(action.payload.data.allCriteria),
+                performancesPageInfo: pageInfo(action.payload.data.allCriteria),
                 errorPerformances: formatGraphQLError(action.payload),
             };
         case "IDPS_PERFORMANCES_ERR":
@@ -58,7 +60,7 @@ function reducer(
                 fetchingPerformances: false,
                 errorPerformances: formatServerError(action.payload),
             };
-            case "IDPS_PERFORMANCE_REQ":
+        case "IDPS_PERFORMANCE_REQ":
             return {
                 ...state,
                 fetchingPerformance: true,

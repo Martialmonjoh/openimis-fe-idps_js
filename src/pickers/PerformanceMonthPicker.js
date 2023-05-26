@@ -8,13 +8,13 @@ class PerformanceMonthPicker extends Component {
   render() {
     const moment = require('moment');
 
-    const { intl, module , label = "month", ...others } = this.props;
-    return <ConstantBasedPicker 
-    module={module} 
-    label={label}
-    withNull={true}
-    constants={moment.months()}
-    {...others} 
+    const { intl, module, label = "month", ...others } = this.props;
+    return <ConstantBasedPicker
+      module={module}
+      label={label}
+      withNull={true}
+      constants={moment.months()}
+      {...others}
     />;
   }
 }

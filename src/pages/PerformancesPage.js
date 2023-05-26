@@ -12,7 +12,8 @@ import {
     withModulesManager,
     ProgressOrError,
     Table,
-    FormattedMessage
+    FormattedMessage,
+    decodeId
 } from "@openimis/fe-core";
 import AddIcon from "@material-ui/icons/Add";
 import PerformanceSearcher from "../components/PerformanceSearcher";
