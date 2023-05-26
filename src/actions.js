@@ -19,7 +19,7 @@ const PERFORMANCE_FULL_PROJECTION = (mm) => [
   "sterilizationTools",
   "promptnessSubmission",
   "hfScore",
-  "healthFacility",
+  "healthFacility{id code name}",
   "degreOfRejection",
 ];
 
@@ -72,7 +72,7 @@ export function fetchPerformanceSummaries(mm, filters) {
     "sterilizationTools",
     "promptnessSubmission",
     "hfScore",
-    "healthFacility",
+    "healthFacility{id code name}",
     "degreOfRejection",
   ];
 
@@ -112,7 +112,7 @@ export function fetchPerformance(mm, performanceId) {
       "sterilizationTools",
       "promptnessSubmission",
       "hfScore",
-      "healthFacility",
+      "healthFacility{id code name}",
       "degreOfRejection",
     ],
   );
