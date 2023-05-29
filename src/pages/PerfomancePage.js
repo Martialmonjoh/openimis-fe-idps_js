@@ -32,12 +32,14 @@ class PerfomancePage extends Component {
     render() {
         const { classes, modulesManager, history, performance_id } = this.props;
         return (
-            <PerfomanceForm
-                performance_id={performance_id}
-                save={this.save}
-                add={this.add}
-                back={(e) => historyPush(modulesManager, history, "idps.route.performances")}
-            />
+            <div className={classes.page}>
+                <PerfomanceForm
+                    performance_id={performance_id}
+                    save={this.save}
+                    add={this.add}
+                    back={(e) => historyPush(modulesManager, history, "idps.route.performances")}
+                />
+            </div>
         )
     }
 

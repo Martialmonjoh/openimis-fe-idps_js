@@ -20,6 +20,7 @@ function reducer(
         fetchedPerformances: false,
         errorPerformances: null,
         performances: [],
+        performancesPageInfo: { totalCount: 0 },
         submittingMutation: false,
         mutation: {},
     },
@@ -27,13 +28,11 @@ function reducer(
 ) {
     switch (action.type) {
         case "IDPS_PERFORMANCE_HEALTH_FACILITY_SELECTED":
-            var claimHealthFacility = action.payload;
-            var s = { ...state, claimHealthFacility };
-            if (claimHealthFacility) {
-                s.claimDistrict = s.claimHealthFacility.location;
-                s.claimRegion = s.claimDistrict.parent;
-            } else {
-                delete s.claimAdmin;
+            var performanceHealthFacility = action.payload;
+            var s = { ...state, performanceHealthFacility };
+            if (performanceHealthFacility) {
+                s.performanceDistrict = s.performanceHealthFacility.location;
+                s.performanceRegion = s.performanceDistrict.parent;
             }
             return s;
         case "IDPS_PERFORMANCES_REQ":
@@ -49,7 +48,8 @@ function reducer(
                 ...state,
                 fetchingPerformances: false,
                 fetchedPerformances: true,
-                performances: action.payload.data.allCriteria,
+                performances: parseData(action.payload.data.allCriteria),
+                performancesPageInfo: pageInfo(action.payload.data.allCriteria),
                 errorPerformances: formatGraphQLError(action.payload),
             };
         case "IDPS_PERFORMANCES_ERR":
@@ -58,7 +58,7 @@ function reducer(
                 fetchingPerformances: false,
                 errorPerformances: formatServerError(action.payload),
             };
-            case "IDPS_PERFORMANCE_REQ":
+        case "IDPS_PERFORMANCE_REQ":
             return {
                 ...state,
                 fetchingPerformance: true,

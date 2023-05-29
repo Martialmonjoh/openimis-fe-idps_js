@@ -73,7 +73,7 @@ class PerformanceFilter extends Component {
       return {
         id: "healthFacility",
         value: v,
-        filter: `hfid: "${v.id}"`,
+        filter: `healthFacility: "${v.id}"`,
       };
     } else {
       return { id: "healthFacility", value: null, filter: null };
@@ -87,7 +87,7 @@ class PerformanceFilter extends Component {
     this.setState((state) => ({
       reset: this.state.reset + 1,
     }));
-    this.props.selectHealthFacility(v);
+    //this.props.selectHealthFacility(v);
   };
 
   render() {
@@ -168,7 +168,7 @@ class PerformanceFilter extends Component {
                     {
                       id: "score",
                       value: v,
-                      filter: `score: "${v}"`,
+                      filter: `hfScore: "${v}"`,
                     },
                   ])
                 }

@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from "react";
 import { bindActionCreators } from "redux";
-import moment from "moment" 
+import moment from "moment"
 import { connect } from "react-redux";
 import { injectIntl } from "react-intl";
-import { Grid, IconButton, Tooltip } from "@material-ui/core";
+import { Grid, IconButton, Tooltip, Box } from "@material-ui/core";
 import { Search as SearchIcon, Tab as TabIcon } from "@material-ui/icons";
 import {
   withModulesManager,
@@ -30,6 +30,16 @@ class PerformanceSearcher extends Component {
     confirmedAction: null,
     reset: 0,
   };
+
+  constructor(props) {
+    super(props);
+    this.rowsPerPageOptions = props.modulesManager.getConf(
+      "fe-claim",
+      "claimFilter.rowsPerPageOptions",
+      [10, 20, 50, 100],
+    );
+    this.defaultPageSize = props.modulesManager.getConf("fe-claim", "claimFilter.defaultPageSize", 10);
+  }
 
   canSelectAll = (selection) =>
     this.props.performances.map((s) => s.id).filter((s) => !selection.map((s) => s.id).includes(s)).length;
@@ -64,7 +74,7 @@ class PerformanceSearcher extends Component {
       "performanceSummaries.medecineAvailability",
       "performanceSummaries.qualifiedPersonnel",
     ];
-    return h.filter(Boolean);
+    return h;
   };
 
   sorts = (filters) => {
@@ -90,7 +100,16 @@ class PerformanceSearcher extends Component {
 
   itemFormatters = (filters) => {
     var formatters = [
-      (performance) => performance.healthFacility,
+      (performance) => (
+        <Box minWidth={300}>
+          <PublishedComponent
+            readOnly={true}
+            pubRef="location.HealthFacilityPicker"
+            withLabel={false}
+            value={performance.healthFacility}
+          />
+        </Box>
+      ),
       (performance) => performance.hfScore,
       (performance) => this.formatDate(performance.period),
       (performance) => performance.promptnessSubmission,
@@ -102,7 +121,7 @@ class PerformanceSearcher extends Component {
   };
 
   rowDisabled = (selection, i) => !!i.validityTo;
-  rowLocked = (selection, i) => !!i.clientMutationId;
+  rowLocked = (selection, performance) => !!performance.clientMutationId;
 
   render() {
     const {
@@ -140,13 +159,13 @@ class PerformanceSearcher extends Component {
           fetch={this.fetch}
           rowIdentifier={this.rowIdentifier}
           filtersToQueryParams={this.filtersToQueryParams}
-          defaultOrderBy="id"
+          defaultOrderBy="-period"
           headers={this.headers}
           itemFormatters={this.itemFormatters}
           sorts={this.sorts}
-          rowDisabled={this.rowDisabled}
+          aligns={this.aligns}
           rowLocked={this.rowLocked}
-          onDoubleClick={(i) => !i.clientMutationId && onDoubleClick(i)}
+          onDoubleClick={onDoubleClick}
           reset={this.state.reset}
         />
       </Fragment>
