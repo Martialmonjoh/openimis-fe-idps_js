@@ -60,5 +60,22 @@
     "idps.performanceFilter.month": "Month",
     "idps.performanceFilter.year": "Year",
     "idps.performanceFilter.score": "Min. Score",
-    "idps.edit.title": "Performance Criteria"
+    "idps.edit.title": "Performance Criteria",
+    "idps.report.description": "Description",
+    "idps.report.definition": "Definition",
+    "idps.report.module": "Module",
+    "idps.report.name": "Report Name",
+    "idps.ReportSearcher.tableTitle": "Reports",
+    "idps.ReportSearcher.editBtn": "Edit",
+    "idps.report.gender": "Gender" ,
+    "idps.report.district": "District",
+    "idps.report.ong": "ONG",
+    "idps.report.region" : "Region",
+    "idps.GenerateReportPicker.triggerBtn": "Generate Report",
+    "idps.GenerateReportPicker.formatLabel": "Output Format",
+    "GenerateReportPicker.genderLabel" : "Gender",
+    "idps.GenerateReportPicker.cancelBtn": "Cancel",
+    "idps.GenerateReportPicker.generateBtn": "Generate",
+    "idps.GenerateReportPicker.title": "Configure Report Generation"
+
 }
