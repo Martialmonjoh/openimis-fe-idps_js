@@ -28,13 +28,11 @@ function reducer(
 ) {
     switch (action.type) {
         case "IDPS_PERFORMANCE_HEALTH_FACILITY_SELECTED":
-            var claimHealthFacility = action.payload;
-            var s = { ...state, claimHealthFacility };
-            if (claimHealthFacility) {
-                s.claimDistrict = s.claimHealthFacility.location;
-                s.claimRegion = s.claimDistrict.parent;
-            } else {
-                delete s.claimAdmin;
+            var performanceHealthFacility = action.payload;
+            var s = { ...state, performanceHealthFacility };
+            if (performanceHealthFacility) {
+                s.performanceDistrict = s.performanceHealthFacility.location;
+                s.performanceRegion = s.performanceDistrict.parent;
             }
             return s;
         case "IDPS_PERFORMANCES_REQ":
