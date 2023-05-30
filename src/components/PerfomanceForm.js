@@ -16,7 +16,7 @@ import PerfomanceMasterPanel from "../components/PerfomanceMasterPanel";
 import { fetchPerformance } from "../actions";
 
 const styles = (theme) => ({
-  page: theme.page,
+  lockedPage: theme.page.locked,
 });
 
 class PerfomanceForm extends Component {
