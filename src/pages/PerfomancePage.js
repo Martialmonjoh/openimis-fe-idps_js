@@ -4,7 +4,14 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withTheme, withStyles } from "@material-ui/core/styles";
 import PerfomanceForm from "../components/PerfomanceForm";
-import { formatMessage, withModulesManager, withHistory, historyPush } from "@openimis/fe-core";
+import {
+    formatMessage,
+    formatMessageWithValues,
+    withModulesManager,
+    withHistory,
+    journalize,
+    historyPush
+} from "@openimis/fe-core";
 import { createPerformance } from "../actions";
 
 const styles = theme => ({
@@ -22,7 +29,7 @@ class PerfomancePage extends Component {
             this.props.createPerformance(
                 this.props.modulesManager,
                 performance,
-                formatMessage(this.props.intl, "idps", "createPerformance.mutationLabel")
+                formatMessageWithValues(this.props.intl, "idps", "createPerformance.mutationLabel")
             );
         } else {
             //dispatch(updateUser(this.props.modulesManager, performance, formatMessageWithValues("idps.createPerformance.mutationLabel")));
@@ -30,7 +37,7 @@ class PerfomancePage extends Component {
     };
 
     render() {
-        const { classes, modulesManager, history, performance_id } = this.props;
+        const { intl, classes, modulesManager, history, performance_id } = this.props;
         return (
             <div className={classes.page}>
                 <PerfomanceForm
@@ -50,7 +57,7 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ createPerformance }, dispatch);
+    return bindActionCreators({ createPerformance, journalize }, dispatch);
 };
 
 export default withHistory(
