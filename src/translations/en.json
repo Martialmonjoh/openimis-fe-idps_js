@@ -38,7 +38,7 @@
     "idps.performance.month.November": "November",
     "idps.performance.month.December": "December",
     "idps.year.null": "",
-    "idps.createPerformance.mutationLabel": "Create performance",
+    "idps.createPerformance.mutationLabel": "Create Performance",
     "idps.healthfacilities.performance": "Healthfacilities Performances",
     "idps.newPerformance.tooltip": "Add healthfacilitie Performances",
     "idps.performanceSummaries.deletePerformance.tooltip": "Delete healthfacilitie Performances",
