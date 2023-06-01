@@ -32,7 +32,7 @@ const ReportSearcher = () => {
   return (
     <>
       <Searcher
-        module="report"
+        module="idps"
         tableTitle={formatMessageWithValues("ReportSearcher.tableTitle", { count: data?.reports?.length })}
         items={data?.reports ?? []}
         fetchingItems={isLoading}

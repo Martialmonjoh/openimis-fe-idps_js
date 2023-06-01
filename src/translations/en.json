@@ -76,6 +76,9 @@
     "GenerateReportPicker.genderLabel" : "Gender",
     "idps.GenerateReportPicker.cancelBtn": "Cancel",
     "idps.GenerateReportPicker.generateBtn": "Generate",
-    "idps.GenerateReportPicker.title": "Configure Report Generation"
-
+    "idps.GenerateReportPicker.title": "Configure Report Generation",
+    "idps.invoice_report.dateFrom" : "From Date",
+    "idps.invoice_report.dateTo" : "To Date",
+    "idps.indicator_report.dateFrom" : "From Date",
+    "idps.indicator_report.dateTo" : "To Date"
 }

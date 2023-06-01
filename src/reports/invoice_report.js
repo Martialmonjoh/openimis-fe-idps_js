@@ -2,9 +2,8 @@ import { Grid } from "@material-ui/core";
 import { PublishedComponent } from "@openimis/fe-core";
 import React from "react";
 
-const EnrolledFamiliesReport = (props) => {
+const invoice_report = (props) => {
   const { values, setValues } = props;
-
   return (
     <Grid container direction="column" spacing={1}>
       <Grid item>
@@ -27,7 +26,7 @@ const EnrolledFamiliesReport = (props) => {
           value={values.dateFrom}
           module="idps"
           required
-          label="EnrolledFamiliesReport.dateFrom"
+          label="invoice_report.dateFrom"
           onChange={(dateFrom) => setValues({ ...values, dateFrom })}
         />
       </Grid>
@@ -37,7 +36,7 @@ const EnrolledFamiliesReport = (props) => {
           value={values.dateTo}
           module="idps"
           required
-          label="EnrolledFamiliesReport.dateTo"
+          label="invoice_report.dateTo"
           onChange={(dateTo) => setValues({ ...values, dateTo })}
         />
       </Grid>
@@ -45,4 +44,4 @@ const EnrolledFamiliesReport = (props) => {
   );
 };
 
-export default EnrolledFamiliesReport;
+export default invoice_report;

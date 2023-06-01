@@ -63,23 +63,6 @@ const GenerateReportPicker = (props) => {
                 />
               </Box>
             )}
-            {!props.outputFormat && (
-              <Box mb={1}>
-                <SelectInput
-                  module="idps"
-                  required
-                  label="GenerateReportPicker.genderLabel"
-                  options={[
-                    { value: "unknow", label: "UNKNOW" },
-                    { value: "male", label: "MALE" },
-                    { value: "female", label: "FEMALE" },
-                    { value: "other", label: "OTHER" },
-                  ]}
-                  value={defaulGender.genderValue}
-                  onChange={(genderValue) => setValues({ ...defaulGender, genderValue })}
-                />
-              </Box>
-            )}
             {moduleReport?.component && (
               <moduleReport.component report={report} values={values} setValues={setValues} />
             )}

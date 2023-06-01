@@ -6,8 +6,8 @@ import PerformancesPage from "./pages/PerformancesPage";
 import ReportsPage from "./pages/ReportsPage";
 import PerformanceMonthPicker from "./pickers/PerformanceMonthPicker";
 import PerformanceYearPicker from "./pickers/PerformanceMonthPicker";
-import EnrolledFamiliesReport from "./reports/EnrolledFamiliesReport";
-import InsureeFamilyOverviewReport from "./reports/InsureeFamilyOverviewReport";
+import indicator_report from "./reports/indicator_report";
+import invoice_report from "./reports/invoice_report";
 import reducer from "./reducer"
 
 const ROUTE_IDPS_PERFORMANCE = "idps/performance";
@@ -18,7 +18,24 @@ const DEFAULT_CONFIG = {
   "translations": [{ key: "en", messages: messages_en }, { key: "fr", messages: messages_fr }],
   "reducers": [{key: 'idps', reducer}],
   "reports": [
-
+    { 
+      key: 'indicator_report',
+      component: indicator_report ,
+      isValid: (values) => values.dateFrom && values.dateTo,
+      getParams: (values) => ({
+        dateFrom: values.dateFrom,
+        dateTo: values.dateTo,
+      })
+    },
+    { 
+      key: 'invoice_report',
+      component: invoice_report ,
+      isValid: (values) => values.dateFrom && values.dateTo,
+      getParams: (values) => ({
+        dateFrom: values.dateFrom,
+        dateTo: values.dateTo,
+      })
+    }
   ],
   "refs": [
     { key: "idps.PerformanceMonthPicker", ref: PerformanceMonthPicker },
