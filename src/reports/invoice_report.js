@@ -16,7 +16,6 @@ const invoice_report = (props) => {
             })
           }
           required
-          module="idps"
           value={values.location}
           locationLevel={2}
         />

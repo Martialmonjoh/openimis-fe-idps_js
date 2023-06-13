@@ -3,7 +3,6 @@ import messages_fr from "./translations/fr.json";
 import IdpsMainMenu from './menu/IdpsMainMenu';
 import PerfomancePage from "./pages/PerfomancePage";
 import PerformancesPage from "./pages/PerformancesPage";
-import ReportsPage from "./pages/ReportsPage";
 import PerformanceMonthPicker from "./pickers/PerformanceMonthPicker";
 import PerformanceYearPicker from "./pickers/PerformanceMonthPicker";
 import indicator_report from "./reports/indicator_report";
@@ -12,7 +11,6 @@ import reducer from "./reducer"
 
 const ROUTE_IDPS_PERFORMANCE = "idps/performance";
 const ROUTE_IDPS_PERFORMANCES = "idps/performances";
-const ROUTE_IDPS_REPORTS = "idps/reports";
 
 const DEFAULT_CONFIG = {
   "translations": [{ key: "en", messages: messages_en }, { key: "fr", messages: messages_fr }],
@@ -30,8 +28,9 @@ const DEFAULT_CONFIG = {
     { 
       key: 'invoice_report',
       component: invoice_report ,
-      isValid: (values) => values.dateFrom && values.dateTo,
+      isValid: (values) => values.location && values.dateFrom && values.dateTo,
       getParams: (values) => ({
+        hflocation: values.location.code,
         dateFrom: values.dateFrom,
         dateTo: values.dateTo,
       })
@@ -43,13 +42,11 @@ const DEFAULT_CONFIG = {
 
     { key: "idps.route.performance", ref: ROUTE_IDPS_PERFORMANCE },
     { key: "idps.route.performances", ref: ROUTE_IDPS_PERFORMANCES },
-    { key: "idps.route.reports", ref: ROUTE_IDPS_REPORTS },
   ],
   "core.Router": [
 
     { path: ROUTE_IDPS_PERFORMANCE + "/:performance_id?", component: PerfomancePage },
     { path: "idps/performances", component: PerformancesPage },
-    { path: "idps/reports", component: ReportsPage },
   ],
   "core.MainMenu": [IdpsMainMenu],
 }
