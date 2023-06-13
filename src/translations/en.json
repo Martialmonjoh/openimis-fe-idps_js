@@ -1,5 +1,6 @@
 {
     "idps.menu.perfomance": "Performances",
+    "idps.menu.reports": "Reports",
     "idps.add.performance": "Add Performance Criteria",
     "idps.mainMenu": "Idps",
     "idps.card": "Card Number",
@@ -59,5 +60,9 @@
     "idps.performanceFilter.month": "Month",
     "idps.performanceFilter.year": "Year",
     "idps.performanceFilter.score": "Min. Score",
-    "idps.edit.title": "Performance Criteria"
+    "idps.edit.title": "Performance Criteria",
+    "idps.invoice_report.dateFrom" : "From Date",
+    "idps.invoice_report.dateTo" : "To Date",
+    "idps.indicator_report.dateFrom" : "From Date",
+    "idps.indicator_report.dateTo" : "To Date"
 }
