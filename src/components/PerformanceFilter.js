@@ -32,6 +32,7 @@ const styles = (theme) => ({
 class PerformanceFilter extends Component {
   state = {
     showHistory: false,
+    reset: 0,
   };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -80,15 +81,87 @@ class PerformanceFilter extends Component {
     }
   };
 
+  _regionFilter = (v) => {
+    if (!!v) {
+      return {
+        id: "region",
+        value: v,
+        filter: `healthFacility: "${v.uuid}"`,
+      };
+    } else {
+      return { id: "region", value: null, filter: null };
+    }
+  };
+
+  _districtFilter = (v) => {
+    if (!!v) {
+      return {
+        id: "district",
+        value: v,
+        filter: `healthFacility: "${v.uuid}"`,
+      };
+    } else {
+      return { id: "district", value: null, filter: null };
+    }
+  };
+
+  // _periodFilter = (v) => {
+  //   console.log("la periode : " , v);
+  //   if (!!v) {
+  //     return {
+  //       id: "period",
+  //       value: v,
+  //       filter: `healthFacility: "${v}"`,
+  //     };
+  //   } else {
+  //     return { id: "period", value: null, filter: null };
+  //   }
+  // };
+
   _onChangeHealthFacility = (v, s) => {
     this.props.onChangeFilters([
       this._healthFacilityFilter(v),
+      this._regionFilter(null),
+      this._districtFilter(null),
     ]);
     this.setState((state) => ({
       reset: this.state.reset + 1,
     }));
     //this.props.selectHealthFacility(v);
   };
+
+  _onChangeRegion = (v, s) => {
+    this.props.onChangeFilters([
+      this._regionFilter(v),
+      this._districtFilter(null),
+      this._healthFacilityFilter(null),
+    ]);
+    this.setState((state) => ({
+      reset: state.reset + 1,
+    }));
+    //this.props.selectRegion(v);
+  };
+
+  _onChangeDistrict = (v, s) => {
+    this.props.onChangeFilters([
+      this._districtFilter(v),
+      this._regionFilter(null),
+      this._healthFacilityFilter(null),
+    ]);
+    this.setState((state) => ({
+      reset: state.reset + 1,
+    }));
+    //this.props.selectDistrict(v);
+  };
+
+  // _onChangePeriod = (v, s) => {
+  //   this.props.onChangeFilters([
+  //     this._periodFilter(v),
+  //   ]);
+  //   this.setState((state) => ({
+  //     reset: state.reset + 1,
+  //   }));
+  // };
 
   render() {
     const { intl, classes, filters, onChangeFilters } = this.props;
@@ -118,14 +191,15 @@ class PerformanceFilter extends Component {
                 label="performance.month"
                 value={this._filterValue("period")}
                 withNull={true}
-                onChange={(v) =>
+                onChange={(v) => {
                   this.debouncedOnChangeFilter([
                     {
                       id: "period",
-                      value: v,
+                      value: v,//mean "period", "period_Lt", "period_Gt", "period_Lte" or "period_Gte"?
                       filter: `period: "${v}"`,
                     },
                   ])
+                }
                 }
               />
             </Grid>
@@ -140,7 +214,7 @@ class PerformanceFilter extends Component {
                 module="idps"
                 label="performance.year"
                 value={this._filterValue("period")}
-                onChange={(v) =>
+                onChange={(v) => {
                   this.debouncedOnChangeFilter([
                     {
                       id: "period",
@@ -148,6 +222,7 @@ class PerformanceFilter extends Component {
                       filter: `period: "${v}"`,
                     },
                   ])
+                }
                 }
               />
             </Grid>
@@ -163,15 +238,48 @@ class PerformanceFilter extends Component {
                 reset={this.state.reset}
                 module="idps"
                 label={"performanceFilter.score"}
-                onChange={(v) =>
-                  this.debouncedOnChangeFilter([
-                    {
-                      id: "score",
-                      value: v,
-                      filter: `hfScore: "${v}"`,
-                    },
-                  ])
+                onChange={(v) => {
+                  if (typeof v === 'number') {
+                    this.debouncedOnChangeFilter([
+                      {
+                        id: "score",
+                        value: v,
+                        filter: `hfScore: ${v}`,
+                      },
+                    ])
+                  }
                 }
+                }
+              />
+            </Grid>
+          }
+        />
+        <ControlledField
+          module="idps"
+          id="idps.region"
+          field={
+            <Grid item xs={2} className={classes.item}>
+              <PublishedComponent
+                pubRef="location.RegionPicker"
+                value={this._filterValue("region")}
+                withNull={true}
+                onChange={this._onChangeRegion}
+              />
+            </Grid>
+          }
+        />
+        <ControlledField
+          module="idps"
+          id="idps.district"
+          field={
+            <Grid item xs={2} className={classes.item}>
+              <PublishedComponent
+                pubRef="location.DistrictPicker"
+                value={this._filterValue("district")}
+                region={this._filterValue("region")}
+                withNull={true}
+                reset={this.state.reset}
+                onChange={this._onChangeDistrict}
               />
             </Grid>
           }

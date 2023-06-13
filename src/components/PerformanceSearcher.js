@@ -3,18 +3,22 @@ import { bindActionCreators } from "redux";
 import moment from "moment"
 import { connect } from "react-redux";
 import { injectIntl } from "react-intl";
+import { deletePerformance } from "../actions";
+//import {coreConfirm} from "../../../openimis-fe-core_js/src/actions"
 import { Grid, IconButton, Tooltip, Box } from "@material-ui/core";
-import { Search as SearchIcon, Tab as TabIcon } from "@material-ui/icons";
-import {
+import { Search as SearchIcon, Tab as TabIcon, Delete as DeleteIcon } from "@material-ui/icons";
+import feeee, {
   withModulesManager,
   formatMessageWithValues,
   formatMessage,
   Searcher,
   withHistory,
   PublishedComponent,
-  decodeId
+  decodeId,
+  coreConfirm
 } from "@openimis/fe-core";
 import { fetchPerformanceSummaries } from "../actions";
+import { performanceLabel } from "../utils";
 
 import PerformanceFilter from "./PerformanceFilter";
 
@@ -98,6 +102,26 @@ class PerformanceSearcher extends Component {
     return moment(date).format('YYYY-MM')
   }
 
+  confirmDelete = (performance) => {
+    console.log('salut');
+    let confirmedAction = () =>
+      deletePerformance(
+        this.props.modulesManager,
+        performance,
+        formatMessageWithValues(this.props.intl, "idps", "DeletePerformance.mutationLabel", { label: performanceLabel(performance) }),
+      )
+    // console.log("++ this.props.modulesManager : " , this.props.modulesManager);
+    // console.log("++ clientMutationLabel : " , formatMessageWithValues(this.props.intl, "idps", "DeletePerformance.mutationLabel", { label: performanceLabel(performance) }));
+    let confirm = (e) =>
+      coreConfirm(
+        formatMessageWithValues(this.props.intl, "idps", "deletePerformanceDialog.title", { label: performanceLabel(performance) }),
+        formatMessageWithValues(this.props.intl, "idps", "deletePerformanceDialog.message", {
+          label: performanceLabel(performance),
+        }),
+      );
+    this.setState({ confirmedAction }, confirm);
+  };
+
   itemFormatters = (filters) => {
     var formatters = [
       (performance) => (
@@ -116,6 +140,25 @@ class PerformanceSearcher extends Component {
       (performance) => performance.degreOfRejection,
       (performance) => performance.medecineAvailability,
       (performance) => performance.qualifiedPersonnel,
+      (performance) => {
+        //console.log("la performance |----->", performance);
+        // return this.props.rights.includes(RIGHT_INSUREE_DELETE) && !insuree.validityTo && (
+        //   <Grid item>
+        //     <Tooltip title={formatMessage(this.props.intl, "insuree", "insureeSummaries.deleteFamily.tooltip")}>
+        //       <IconButton size="small" onClick={(e) => !insuree.clientMutationId && this.confirmDelete(insuree)}>
+        //         <DeleteIcon />
+        //       </IconButton>
+        //     </Tooltip>
+        //   </Grid>
+        // )
+        return (<Grid item>
+          <Tooltip title={formatMessage(this.props.intl, "idps", "idps.deletePerformance.tooltip")}>
+            <IconButton size="small" onClick={(e) => performance.id &&  this.confirmDelete(performance)}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </Grid>)
+      }
     ];
     return formatters.filter(Boolean);
   };
@@ -140,6 +183,8 @@ class PerformanceSearcher extends Component {
     let performancesPageInfo = {
       totalCount: count
     }
+
+    //console.log("Log de props performe : ------>", this.props)
 
     return (
       <Fragment>
