@@ -12,11 +12,6 @@ class IdpsMainMenu extends Component {
             icon: <FormatAlignLeft/>,
             route: "/idps/performances"
         });
-        entries.push({
-            text: formatMessage(intl, "idps", "menu.reports"),
-            icon: <Ballot/>,
-            route: "/idps/reports"
-        });
 
         if(!entries.length) return null;
         return (
