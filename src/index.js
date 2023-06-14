@@ -28,9 +28,9 @@ const DEFAULT_CONFIG = {
     { 
       key: 'invoice_report',
       component: invoice_report ,
-      isValid: (values) => values.location && values.dateFrom && values.dateTo,
+      isValid: (values) => values.hflocation && values.dateFrom && values.dateTo,
       getParams: (values) => ({
-        hflocation: values.location.code,
+        hflocation: values.hflocation.code,
         dateFrom: values.dateFrom,
         dateTo: values.dateTo,
       })
