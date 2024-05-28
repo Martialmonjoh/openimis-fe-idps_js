@@ -23,6 +23,7 @@ class PerfomanceForm extends Component {
   state = {
     lockNew: false,
     reset: 0,
+    update: true,
     performance: this._newPerformance(),
     newPerformance: true,
   };
@@ -117,6 +118,7 @@ class PerfomanceForm extends Component {
       add,
       performance_id,
     } = this.props;
+    console.log(this.state);
     const { performance } = this.state;
     var actions = [];
 
@@ -136,6 +138,7 @@ class PerfomanceForm extends Component {
             module="idps"
             title="edit.title"
             reset={this.state.reset}
+            update={this.state.update}
             edited_id={performance_id}
             edited={this.state.performance}
             HeadPanel={PerfomanceMasterPanel}

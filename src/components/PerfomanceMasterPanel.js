@@ -40,7 +40,7 @@ class PerfomanceMasterPanel extends FormPanel {
       actions,
     } = this.props;
 
-    let readOnly = !!edited.id ? true : false;
+    let readOnly = !!edited.id ? false : false;
 
     if (!!edited && !!edited.id) {
       const date = new Date(edited.period);

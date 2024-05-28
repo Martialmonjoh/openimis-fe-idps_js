@@ -52,3 +52,19 @@ export const useOverrideReportMutation = () => {
 
     return mutation;
 };
+
+export const usePerformanceDeleteMutation = () => {
+  const mutation = useGraphqlMutation(
+    `
+    mutation deletePerformance($input: DeletePerformanceMutationInput!) {
+      deletePerformance(input: $input) {
+        internalId
+        clientMutationId
+      }
+    }
+  `,
+    { onSuccess: (data) => data?.deletePerformance },
+  );
+
+  return mutation;
+};

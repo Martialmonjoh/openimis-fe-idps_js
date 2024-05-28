@@ -86,8 +86,12 @@ function reducer(
             return dispatchMutationErr(state, action);
         case "IDPS_CREATE_PERFORMANCE_RESP":
             return dispatchMutationResp(state, "createCriteria", action);
-        case "IDPS_DELETE_PERFORMANCES_RESP":
-            return dispatchMutationResp(state, "deletePerformances", action);
+        case "IDPS_DELETE_PERFORMANCE_RESP":
+            return dispatchMutationResp(state, "deletePerformance", action);
+        case "IDPS_UPDATE_PERFORMANCE_RESP":
+            return dispatchMutationResp(state, "updatePerformance", action);
+        // case "IDPS_DELETE_PERFORMANCES_RESP":
+        //     return dispatchMutationResp(state, "deletePerformances", action);
         default:
             return state
     }

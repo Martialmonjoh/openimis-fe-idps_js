@@ -41,6 +41,7 @@ export function createPerformance(mm, performance, clientMutationLabel) {
 }
 
 export function formatPerformanceGQL(mm, performance) {
+  console.log(decodeBase64(performance.id).split(':')[1],"rrrrrrrrrrrrrrrrrrrr")
   const date = new Date(`${performance.month} 1, ${performance.year}`)
   let monthNumber = date.getMonth() + 1;
   if (monthNumber < 10) {
@@ -48,7 +49,6 @@ export function formatPerformanceGQL(mm, performance) {
   }
   return `
     ${!!performance.month && !!performance.year ? `period: "${performance.year}-${monthNumber}"` : ""}
-    ${!!performance.healthFacility && !!performance.healthFacility.id ? `healthFacility: ${decodeId(performance.healthFacility.id)}` : ""}
     ${!!performance.qualifiedPersonnel ? `qualifiedPersonnel: ${performance.qualifiedPersonnel}` : ""}
     ${!!performance.garbagecanAvailability ? `garbagecanAvailability: ${performance.garbagecanAvailability}` : ""}
     ${!!performance.roomsCleaness ? `roomsCleaness: ${performance.roomsCleaness}` : ""}
@@ -56,8 +56,11 @@ export function formatPerformanceGQL(mm, performance) {
     ${!!performance.functionalsToilets ? `functionalsToilets: ${performance.functionalsToilets}` : ""}
     ${!!performance.wasteSeparation ? `wasteSeparation: ${performance.wasteSeparation == true ? 1 : 0}` : `wasteSeparation: 0`}
     ${!!performance.sterilizationTools ? `sterilizationTools: ${performance.sterilizationTools}` : ""}
+    ${!!performance.id ? `id: ${decodeBase64(performance.id).split(':')[1]}` : ""}
   `;
+  
 }
+
 
 export function fetchPerformanceSummaries(mm, filters) {
   var projections = [
@@ -79,20 +82,35 @@ export function fetchPerformanceSummaries(mm, filters) {
   const payload = formatPageQueryWithCount("allCriteria", filters, projections);
   return graphql(payload, "IDPS_PERFORMANCES");
 }
-
+function decodeBase64(encodedString) {
+  return atob(encodedString);
+}
 export function deletePerformance(mm, performance, clientMutationLabel) {
+  const decodedIds = decodeBase64(performance.id);
   let mutation = formatMutation(
-    "deletePerformances",
-    `ids: ["${performance.id}"]`,
+    "deleteCriteria",
+    `id: ${decodedIds.split(':')[1]}`,
     clientMutationLabel,
   );
+
   performance.clientMutationId = mutation.clientMutationId;
   var requestedDateTime = new Date();
-  return graphql(mutation.payload, ["IDPS_MUTATION_REQ", "IDPS_DELETE_PERFORMANCES_RESP", "IDPS_MUTATION_ERR"], {
+  return graphql(mutation.payload, ["IDPS_MUTATION_REQ", "IDPS_DELETE_PERFORMANCE_RESP", "IDPS_MUTATION_ERR"], {
     clientMutationId: mutation.clientMutationId,
     clientMutationLabel,
     requestedDateTime,
-    familyUuid: family_uuid,
+    // performanceId: performance_id,
+  });
+}
+
+export function updatePerformance(mm, performance, clientMutationLabel) {
+  let mutation = formatMutation("updateCriteria", formatPerformanceGQL(mm, performance), clientMutationLabel);
+  var requestedDateTime = new Date();
+  performance.clientMutationId = mutation.clientMutationId;
+  return graphql(mutation.payload, ["IDPS_MUTATION_REQ", "IDPS_UPDATE_PERFORMANCE_RESP", "IDPS_MUTATION_ERR"], {
+      clientMutationId: mutation.clientMutationId,
+      clientMutationLabel,
+      requestedDateTime,
   });
 }
 

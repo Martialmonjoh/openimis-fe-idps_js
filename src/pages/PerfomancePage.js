@@ -12,7 +12,7 @@ import {
     journalize,
     historyPush
 } from "@openimis/fe-core";
-import { createPerformance } from "../actions";
+import { createPerformance, updatePerformance } from "../actions";
 
 const styles = theme => ({
     page: theme.page,
@@ -31,13 +31,19 @@ class PerfomancePage extends Component {
                 performance,
                 formatMessageWithValues(this.props.intl, "idps", "createPerformance.mutationLabel")
             );
+
         } else {
-            //dispatch(updateUser(this.props.modulesManager, performance, formatMessageWithValues("idps.createPerformance.mutationLabel")));
-        }
+            this.props.updatePerformance(
+              this.props.modulesManager,
+              performance,
+              formatMessageWithValues(this.props.intl, "idps", "updatePerformance.mutationLabel", { period: performance.periodPerformance }),
+            );
+          }
     };
 
     render() {
-        const { intl, classes, modulesManager, history, performance_id } = this.props;
+        const { intl, classes, modulesManager, history, performance_id } = this.props; 
+        console.log(this.props,"qqqqqqqqqqqqqqqqqqqqqqqqqq")
         return (
             <div className={classes.page}>
                 <PerfomanceForm
@@ -57,7 +63,7 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({ createPerformance, journalize }, dispatch);
+    return bindActionCreators({ createPerformance, updatePerformance, journalize }, dispatch);
 };
 
 export default withHistory(

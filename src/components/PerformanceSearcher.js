@@ -4,17 +4,18 @@ import moment from "moment"
 import { connect } from "react-redux";
 import { injectIntl } from "react-intl";
 import { Grid, IconButton, Tooltip, Box } from "@material-ui/core";
-import { Search as SearchIcon, Tab as TabIcon } from "@material-ui/icons";
+import { Tab as TabIcon, Delete as DeleteIcon } from "@material-ui/icons";
 import {
   withModulesManager,
   formatMessageWithValues,
   formatMessage,
   Searcher,
+  ConfirmDialog,
   withHistory,
   PublishedComponent,
   decodeId
 } from "@openimis/fe-core";
-import { fetchPerformanceSummaries } from "../actions";
+import { deletePerformance, fetchPerformanceSummaries } from "../actions";
 
 import PerformanceFilter from "./PerformanceFilter";
 
@@ -73,6 +74,7 @@ class PerformanceSearcher extends Component {
       "performanceSummaries.degreOfRejection",
       "performanceSummaries.medecineAvailability",
       "performanceSummaries.qualifiedPersonnel",
+      "actions",
     ];
     return h;
   };
@@ -98,6 +100,22 @@ class PerformanceSearcher extends Component {
     return moment(date).format('YYYY-MM')
   }
 
+  deletePerformance = (isConfirmed) => {
+    if (!isConfirmed) {
+      this.setState({ deletePerformance: null });
+    } else {
+      const performance = this.state.deletePerformance;
+      this.setState({ deletePerformance: null }, async () => {
+        await this.props.deletePerformance(
+          this.props.modulesManager,
+          performance,
+          formatMessageWithValues(this.props.intl, "performance", "deletePerformance.mutationLabel", { period: performance.periodPerformance }),
+        );
+        this.fetch(this.state.params);
+      });
+    }
+  };
+
   itemFormatters = (filters) => {
     var formatters = [
       (performance) => (
@@ -116,6 +134,15 @@ class PerformanceSearcher extends Component {
       (performance) => performance.degreOfRejection,
       (performance) => performance.medecineAvailability,
       (performance) => performance.qualifiedPersonnel,
+      (performance) => (
+        <>
+          <Tooltip  title={formatMessage(this.props.intl, "performance", "deletePerformance.tooltip")}>
+            <IconButton onClick={() => this.setState({ deletePerformance: performance })}>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </>
+      )
     ];
     return formatters.filter(Boolean);
   };
@@ -143,6 +170,15 @@ class PerformanceSearcher extends Component {
 
     return (
       <Fragment>
+        {this.state.deletePerformance && (
+          <ConfirmDialog
+            confirm={{
+              title: formatMessage(intl, "performance", "deleteDialog.title"),
+              message: formatMessage(intl, "performance", "deleteDialog.message"),
+            }}
+            onConfirm={this.deletePerformance}
+          />
+        )}
         <Searcher
           module="idps"
           cacheFiltersKey={cacheFiltersKey}
@@ -167,6 +203,7 @@ class PerformanceSearcher extends Component {
           rowLocked={this.rowLocked}
           onDoubleClick={onDoubleClick}
           reset={this.state.reset}
+          rowDisabled={(_, i) => i.validityTo || i.clientMutationId}
         />
       </Fragment>
     );
@@ -181,7 +218,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ fetchPerformanceSummaries }, dispatch);
+  return bindActionCreators({ fetchPerformanceSummaries,deletePerformance }, dispatch);
 };
 
 export default withModulesManager(
